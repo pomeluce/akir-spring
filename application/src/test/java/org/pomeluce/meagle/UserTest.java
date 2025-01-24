@@ -17,8 +17,8 @@ import java.util.Optional;
  * @author : lucas
  * @version 1.0
  * @date : 2024/8/10 20:48
- * @className : RifyUserTest
- * @description : RifyUser 测试类
+ * @className : UserTest
+ * @description : User 测试类
  */
 @SpringBootTest
 public class UserTest {
@@ -43,7 +43,7 @@ public class UserTest {
     }
 
     @Test
-    void findRifyUserByAccountTest() {
+    void findMeagleUserByAccountTest() {
         System.out.println(repository.findUserByAccount("zhangsan").orElseThrow());
     }
 

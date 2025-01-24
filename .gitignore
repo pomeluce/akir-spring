@@ -37,7 +37,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Dev or Pro Environment Profile ###
-**/application-dev.properties
-**/application-pro.properties
