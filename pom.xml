@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.rify</groupId>
-    <artifactId>rapidify-spring</artifactId>
-    <version>2024.2.2</version>
+    <groupId>org.pomeluce</groupId>
+    <artifactId>meagle-spring</artifactId>
+    <version>3.0.1</version>
     <packaging>pom</packaging>
 
-    <name>rapidify-spring</name>
-    <description>fast and efficient springboot development scaffolding</description>
+    <name>meagle-spring</name>
+    <description>fast and efficient spring-boot development scaffolding</description>
+
     <modules>
         <module>common</module>
         <module>core</module>
-        <module>job</module>
-        <module>generator</module>
-        <module>server</module>
         <module>application</module>
+        <module>server</module>
+        <module>generator</module>
+        <module>tasks</module>
     </modules>
 
     <properties>
@@ -25,17 +25,17 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
-        <spring-boot.version>3.3.2</spring-boot.version>
+        <spring-boot.version>3.4.1</spring-boot.version>
         <querydsl.version>5.1.0</querydsl.version>
-        <blaze-persistence.version>1.6.12</blaze-persistence.version>
-        <hypersistence.version>3.8.2</hypersistence.version>
-        <druid.version>1.2.23</druid.version>
-        <commons-lang3.version>3.15.0</commons-lang3.version>
+        <blaze-persistence.version>1.6.14</blaze-persistence.version>
+        <hypersistence.version>3.9.0</hypersistence.version>
+        <druid.version>1.2.24</druid.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <knife4j.version>4.5.0</knife4j.version>
-        <jackson.version>2.17.2</jackson.version>
+        <jackson.version>2.18.2</jackson.version>
         <jwt.version>0.12.6</jwt.version>
         <user-agent.version>1.21</user-agent.version>
-        <lombok.version>1.18.34</lombok.version>
+        <lombok.version>1.18.36</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -151,34 +151,34 @@
             </dependency>
 
             <dependency>
-                <groupId>org.rify</groupId>
+                <groupId>org.pomeluce</groupId>
                 <artifactId>common</artifactId>
-                <version>2024.2.2</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
-                <groupId>org.rify</groupId>
+                <groupId>org.pomeluce</groupId>
                 <artifactId>core</artifactId>
-                <version>2024.2.2</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
-                <groupId>org.rify</groupId>
-                <artifactId>job</artifactId>
-                <version>2024.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.rify</groupId>
-                <artifactId>generator</artifactId>
-                <version>2024.2.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.rify</groupId>
+                <groupId>org.pomeluce</groupId>
                 <artifactId>server</artifactId>
-                <version>2024.2.2</version>
+                <version>3.0.1</version>
             </dependency>
             <dependency>
-                <groupId>org.rify</groupId>
+                <groupId>org.pomeluce</groupId>
                 <artifactId>application</artifactId>
-                <version>2024.2.2</version>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pomeluce</groupId>
+                <artifactId>generator</artifactId>
+                <version>3.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pomeluce</groupId>
+                <artifactId>tasks</artifactId>
+                <version>3.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -197,7 +197,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.16.2</version>
+                <version>2.18.0</version>
                 <configuration>
                     <!-- 不生成 backup pom 文件 -->
                     <generateBackupPoms>false</generateBackupPoms>
@@ -230,7 +230,7 @@
                             <path>
                                 <groupId>jakarta.persistence</groupId>
                                 <artifactId>jakarta.persistence-api</artifactId>
-                                <version>3.1.0</version>
+                                <version>3.2.0</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>

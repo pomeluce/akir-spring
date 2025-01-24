@@ -1,0 +1,14 @@
+package org.pomeluce.meagle.common.exception.user;
+
+/**
+ * @author : lucas
+ * @version 1.0
+ * @date : 2024/8/10 16:03
+ * @className : MeagleUserPasswordRetryLimitExceedException
+ * @description :  用户密码重试次数超限异常
+ */
+public class MeagleUserPasswordRetryLimitExceedException extends MeagleUserException {
+    public MeagleUserPasswordRetryLimitExceedException(Integer maxRetries, Integer lockTime) {
+        super("login.user.password.retry.limit.exceed", maxRetries, lockTime);
+    }
+}

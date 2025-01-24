@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.rify</groupId>
-        <artifactId>rapidify-spring</artifactId>
-        <version>2024.2.2</version>
+        <groupId>org.pomeluce</groupId>
+        <artifactId>meagle-spring</artifactId>
+        <version>3.0.1</version>
     </parent>
 
     <artifactId>generator</artifactId>
 
-    <name>rify-generator</name>
-    <description>rify 代码生成器</description>
+    <name>meagle-generator</name>
+    <description>meagle code generator</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,7 +20,4 @@
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
 
-    <dependencies>
-
-    </dependencies>
 </project>

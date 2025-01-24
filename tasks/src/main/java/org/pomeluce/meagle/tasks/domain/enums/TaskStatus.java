@@ -1,0 +1,19 @@
+package org.pomeluce.meagle.tasks.domain.enums;
+
+/**
+ * @author : lucas
+ * @version 1.0
+ * @date : 2024/8/15 23:36
+ * @className : TaskStatus
+ * @description : 系统定时任务状态枚举类
+ */
+public enum TaskStatus {
+    /**
+     * 正常
+     */
+    NORMAL,
+    /**
+     * 暂停
+     */
+    PAUSE
+}
