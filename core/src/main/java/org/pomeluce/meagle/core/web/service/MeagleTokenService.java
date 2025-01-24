@@ -1,8 +1,6 @@
 package org.pomeluce.meagle.core.web.service;
 
 import eu.bitwalker.useragentutils.UserAgent;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
@@ -11,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.pomeluce.meagle.common.config.MeagleProperty;
 import org.pomeluce.meagle.common.core.redis.RedisClient;
 import org.pomeluce.meagle.common.enums.CacheKey;
+import org.pomeluce.meagle.common.exception.MeagleServiceException;
 import org.pomeluce.meagle.common.utils.StringUtils;
 import org.pomeluce.meagle.common.utils.id.IdGenerator;
 import org.pomeluce.meagle.common.utils.location.IpAddrUtils;
@@ -21,14 +20,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author : lucas
@@ -71,7 +74,7 @@ public class MeagleTokenService {
                 // 自定义属性
                 .claims(claims)
                 // 设置签名使用的签名算法和签名使用的秘钥
-                .signWith(generalKey(), Jwts.SIG.HS256)
+                .signWith(getPrivateKey(), Jwts.SIG.ES256)
                 .compact();
     }
 
@@ -151,7 +154,7 @@ public class MeagleTokenService {
      */
     public boolean checkToken(String token) {
         try {
-            getJws(token);
+            Jwts.parser().verifyWith(getPublicKey()).build().parseSignedClaims(token);
         } catch (JwtException e) {
             log.error("token information is expired: [{}]", e.getMessage());
         } catch (IllegalArgumentException e) {
@@ -279,29 +282,49 @@ public class MeagleTokenService {
     }
 
     /**
-     * @param token token 信息 {@link String}
-     * @return 返回一个 Jws 类型的 token 数据声明信息
+     * 获取 ES256 私钥
+     *
+     * @return 返回一个 PrivateKey{@link PrivateKey} 类型的私钥
      */
-    public Jws<Claims> getJws(String token) {
-        return Jwts.parser().verifyWith(generalKey()).build().parseSignedClaims(token);
+    public PrivateKey getPrivateKey() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPrivateKey());
+            byte[] encodeKey = Objects.requireNonNull(is).readAllBytes();
+            is.close();
+
+            String content = new String(encodeKey)
+                    .replace("-----BEGIN PRIVATE KEY-----", "")
+                    .replace("-----END PRIVATE KEY-----", "")
+                    .replaceAll("\\s", "");
+
+            byte[] decode = Base64.getDecoder().decode(content);
+
+            return KeyFactory.getInstance("EC").generatePrivate(new PKCS8EncodedKeySpec(decode));
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            throw new MeagleServiceException(StringUtils.format("failed to parse private key: {}", e.getMessage()));
+        }
     }
 
     /**
-     * 由字符串生成加密 key
+     * 获取 ES256 公钥
      *
-     * @return SecretKey
+     * @return 返回一个 PublicKey{@link PublicKey} 类型的公钥
      */
-    public SecretKey generalKey() {
-        byte[] encodedKey = Base64.getEncoder().encode(tokenProp.getEncryptKey().getBytes());
-        /*
-        使用 len 的第一个 len 字节构造来自给定字节数组的 key, 从 offset 开始。
-        构成密钥的字节是 key[offset] 和 key[offset + len - 1] 之间的字节
-        参数
-            key - 密钥的密钥材料, 将复制以 offset 开头的数组的第一个 len 字节, 以防止后续修改
-            offset - 密钥材料开始的 key 中的偏移量
-            len - 密钥材料的长度
-            algorithm - 与给定密钥材料关联的密钥算法的名称, AES 是一种对称加密算法
-         */
-        return new SecretKeySpec(encodedKey, 0, encodedKey.length, tokenProp.getAlgorithm());
+    public PublicKey getPublicKey() {
+        try {
+            InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPublicKey());
+            byte[] encodeKey = Objects.requireNonNull(is).readAllBytes();
+            is.close();
+            String content = new String(encodeKey)
+                    .replace("-----BEGIN PUBLIC KEY-----", "")
+                    .replace("-----END PUBLIC KEY-----", "")
+                    .replaceAll("\\s", "");
+
+            byte[] decode = Base64.getDecoder().decode(content);
+
+            return KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(decode));
+        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
+            throw new MeagleServiceException(StringUtils.format("failed to parse public key: {}", e.getMessage()));
+        }
     }
 }

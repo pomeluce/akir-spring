@@ -41,3 +41,6 @@ build/
 ### Dev or Pro Environment Profile ###
 **/application-dev.properties
 **/application-pro.properties
+
+### Certificate Files ###
+**/*.pem

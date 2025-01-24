@@ -55,7 +55,8 @@ public class MeagleProperty {
     @Setter
     public static class Token {
         private String algorithm;
-        private String encryptKey;
+        private String publicKey;
+        private String privateKey;
         private String issuer;
         private int expireTime;
         private int refreshExpireTime;
