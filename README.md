@@ -13,7 +13,7 @@
 1. 拉取 Akir-spring 仓库
 
 ```
-git clone https://github.com/pomeluce/Akir-spring
+git clone https://github.com/pomeluce/akir-spring
 ```
 
 2. 使用 IntelliJ IDEA 运行 akir-spring 项目
