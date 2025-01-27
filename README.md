@@ -1,4 +1,4 @@
-## Meagle-Spring
+## Akir-Spring
 
 ### 使用说明
 
@@ -10,10 +10,10 @@
 
 #### 方式 2:
 
-1. 拉取 meagle-spring 仓库
+1. 拉取 Akir-spring 仓库
 
 ```
-git clone https://github.com/pomeluce/meagle-spring
+git clone https://github.com/pomeluce/Akir-spring
 ```
 
-2. 使用 IntelliJ IDEA 运行 meagle-spring 项目
+2. 使用 IntelliJ IDEA 运行 akir-spring 项目

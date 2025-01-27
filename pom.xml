@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.pomeluce</groupId>
-    <artifactId>meagle-spring</artifactId>
+    <artifactId>akir-spring</artifactId>
     <version>3.0.1</version>
     <packaging>pom</packaging>
 
-    <name>meagle-spring</name>
+    <name>akir-spring</name>
     <description>fast and efficient spring-boot development scaffolding</description>
 
     <modules>

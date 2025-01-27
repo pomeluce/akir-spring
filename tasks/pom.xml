@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.pomeluce</groupId>
-        <artifactId>meagle-spring</artifactId>
+        <artifactId>akir-spring</artifactId>
         <version>3.0.1</version>
     </parent>
 
     <artifactId>tasks</artifactId>
 
-    <name>meagle-tasks</name>
-    <description>meagle timing tasks</description>
+    <name>akir-tasks</name>
+    <description>akir timing tasks</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
