@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/11/11 15:46
  * @className : ObjectUtils
  * @description : 对象工具类

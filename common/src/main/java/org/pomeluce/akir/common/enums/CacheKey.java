@@ -2,7 +2,7 @@ package org.pomeluce.akir.common.enums;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/29 19:23
  * @className : CacheKey
  * @description : 缓存 key 枚举类

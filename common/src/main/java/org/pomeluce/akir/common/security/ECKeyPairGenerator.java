@@ -6,7 +6,7 @@ import java.security.spec.ECGenParameterSpec;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2025/1/24 22:44
  * @className : ECKeyPairGenerator
  * @description : ESC256 密钥对生成

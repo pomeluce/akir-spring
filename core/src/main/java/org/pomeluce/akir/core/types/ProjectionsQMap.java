@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/11 17:53
  * @className : QResultMap
  * @description : querydsl 集合类型 projection

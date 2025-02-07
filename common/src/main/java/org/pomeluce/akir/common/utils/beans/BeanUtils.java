@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/11/11 16:53
  * @className : BeanUtils
  * @description : bean 工具类

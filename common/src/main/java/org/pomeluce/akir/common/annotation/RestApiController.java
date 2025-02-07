@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/20下午11:14
  * @className : RestApiController
  * @description : RestApi 控制器注解

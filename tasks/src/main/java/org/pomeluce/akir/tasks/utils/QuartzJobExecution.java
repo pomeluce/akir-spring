@@ -5,7 +5,7 @@ import org.quartz.JobExecutionContext;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/9 21:14
  * @className : QuartzJobExecution
  * @description : 定时任务执行器

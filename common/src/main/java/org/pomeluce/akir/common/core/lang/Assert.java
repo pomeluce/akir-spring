@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/11/11下午9:38
  * @className : Assert
  * @description : 断言

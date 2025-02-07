@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/27 23:38
  * @className : LoginController
  * @description : 登录控制器

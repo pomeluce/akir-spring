@@ -5,7 +5,7 @@ import org.pomeluce.akir.common.utils.StringUtils;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/11 22:14
  * @className : StringUtilsTest
  * @description : StringUtils 测试类

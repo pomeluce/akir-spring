@@ -35,7 +35,7 @@ import java.util.*;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/28 17:22
  * @className : AkirTokenService
  * @description : Token 服务处理

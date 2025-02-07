@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/14 13:21
  * @className : AkirEnvironment
  * @description : Environment 环境变量配置类

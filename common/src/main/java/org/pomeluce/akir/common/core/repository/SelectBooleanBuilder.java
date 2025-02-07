@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/12 20:59
  * @className : SelectBooleanBuilder
  * @description : 动态查询构造器

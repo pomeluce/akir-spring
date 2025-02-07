@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/27下午11:46
  * @className : SecurityUtilsTest
  * @description : SecurityUtils 测试类

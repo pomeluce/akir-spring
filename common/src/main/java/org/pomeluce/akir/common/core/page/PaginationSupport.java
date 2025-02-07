@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/12 23:51
  * @className : PaginationSupport
  * @description : 数据分页支持器

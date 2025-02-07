@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/30下午9:55
  * @className : Parser
  * @description : 字符串解析

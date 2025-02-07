@@ -20,7 +20,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/5 20:06
  * @className : HttpRequest
  * @description : Http 请求对象

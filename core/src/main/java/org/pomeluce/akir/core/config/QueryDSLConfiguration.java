@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/11 01:12
  * @className : QueryDSLConfiguration
  * @description : query dsl 配置类

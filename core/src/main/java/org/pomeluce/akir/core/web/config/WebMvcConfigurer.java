@@ -13,7 +13,7 @@ import java.util.Locale;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/29 18:25
  * @className : WebMvcConfigurer
  * @description : web mvc 配置

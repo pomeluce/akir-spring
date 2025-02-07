@@ -15,7 +15,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/2 11:23
  * @className : User
  * @description : 用户实体类

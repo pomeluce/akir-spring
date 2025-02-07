@@ -10,7 +10,7 @@ import java.util.Base64;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2025/1/24 22:50
  * @className : ECKeyPairGeneratorTest
  * @description : ESC256 密钥对生成测试类

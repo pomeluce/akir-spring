@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/28下午10:12
  * @className : SpringClient
  * @description : spring 客户端工具类

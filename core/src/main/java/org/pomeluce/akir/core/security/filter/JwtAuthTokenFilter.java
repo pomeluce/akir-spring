@@ -21,7 +21,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/14 20:37
  * @className : JwtAuthTokenFilter
  * @description : security token 解析过滤器

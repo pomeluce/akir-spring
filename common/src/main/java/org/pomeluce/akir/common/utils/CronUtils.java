@@ -4,7 +4,7 @@ import org.springframework.scheduling.support.CronExpression;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/9 21:16
  * @className : CronUtils
  * @description : Cron 表达式工具类

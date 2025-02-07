@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/29上午11:58
  * @className : CommonTest
  * @description : common 模块测试类

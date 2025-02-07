@@ -6,7 +6,7 @@ import org.pomeluce.akir.common.utils.spring.SpringMessage;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/22 下午10:43
  * @className : AkirBaseException
  * @description : 基础异常

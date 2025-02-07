@@ -5,7 +5,7 @@ import java.util.Set;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/11/12下午3:42
  * @className : BeanCopyOptions
  * @description : bean 拷贝选项

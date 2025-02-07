@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/6下午8:47
  * @className : RedisMQ
  * @description : Redis 消息队列实现

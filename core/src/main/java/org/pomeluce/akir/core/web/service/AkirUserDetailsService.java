@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/27 11:17
  * @className : AkirUserDetailsService
  * @description : 用户验证处理

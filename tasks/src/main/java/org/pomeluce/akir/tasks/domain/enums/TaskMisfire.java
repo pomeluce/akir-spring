@@ -2,7 +2,7 @@ package org.pomeluce.akir.tasks.domain.enums;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/15 23:33
  * @className : TaskMisfire
  * @description : 定时任务补偿机制枚举类

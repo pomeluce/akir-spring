@@ -5,7 +5,7 @@ import org.pomeluce.akir.common.text.Parser;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/29下午9:16
  * @className : StringUtils
  * @description : string 工具类

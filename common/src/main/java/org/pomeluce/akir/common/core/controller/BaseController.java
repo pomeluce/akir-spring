@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/29 11:18
  * @className : BaseController
  * @description : web 通用控制器

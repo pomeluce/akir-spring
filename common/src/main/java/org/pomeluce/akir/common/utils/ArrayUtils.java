@@ -2,7 +2,7 @@ package org.pomeluce.akir.common.utils;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/12 22:29
  * @className : ArrayUtils
  * @description : 数组工具类

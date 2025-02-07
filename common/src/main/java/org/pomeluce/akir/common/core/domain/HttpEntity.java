@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/30上午10:39
  * @className : HttpEntity
  * @description : http 请求返回实体

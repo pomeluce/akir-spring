@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/29下午3:25
  * @className : JacksonUtils
  * @description : jackson 工具类

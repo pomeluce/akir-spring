@@ -15,7 +15,7 @@ import java.io.Serial;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/9 21:10
  * @className : Task
  * @description : 定时任务信息实体类

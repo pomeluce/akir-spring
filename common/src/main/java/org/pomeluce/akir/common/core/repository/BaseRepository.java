@@ -10,7 +10,7 @@ import java.util.Optional;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/11 21:25
  * @className : BaseRepository
  * @description : 通用持久层接口

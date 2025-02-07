@@ -6,7 +6,7 @@ import java.util.UUID;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/28下午8:21
  * @className : IdGenerator
  * @description : id 生成工具类

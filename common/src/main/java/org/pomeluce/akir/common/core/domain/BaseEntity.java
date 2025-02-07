@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/14 21:27
  * @className : BaseEntity
  * @description : entity 基类

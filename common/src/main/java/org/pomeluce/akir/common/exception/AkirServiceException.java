@@ -2,7 +2,7 @@ package org.pomeluce.akir.common.exception;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/28 23:22
  * @className : AkirServiceException
  * @description : service 通用异常类

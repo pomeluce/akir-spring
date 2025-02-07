@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/29下午3:51
  * @className : AkirProperty
  * @description : akir 配置类

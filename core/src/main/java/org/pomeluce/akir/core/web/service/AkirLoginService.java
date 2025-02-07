@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/27 23:16
  * @className : AkirLoginService
  * @description : 登录校验服务

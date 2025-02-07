@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/11下午9:10
  * @className : RabbitQueue
  * @description : RabbitMQ 消息队列

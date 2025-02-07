@@ -15,7 +15,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/21 18:06
  * @className : AuthEntryPointHandler
  * @description : 匿名请求处理器

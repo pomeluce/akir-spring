@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/28下午9:51
  * @className : ServletClient
  * @description : 客户端工具类

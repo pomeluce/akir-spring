@@ -2,7 +2,7 @@ package org.pomeluce.akir.common.constants;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/9 21:09
  * @className : ScheduleKey
  * @description : 定时任务枚举

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/11/12下午12:05
  * @className : ObjectUtilsTest
  * @description : object 工具测试类

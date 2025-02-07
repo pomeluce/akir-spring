@@ -15,7 +15,7 @@ import java.util.Objects;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/9/27下午11:28
  * @className : LoginUser
  * @description : 登录用户身份权限

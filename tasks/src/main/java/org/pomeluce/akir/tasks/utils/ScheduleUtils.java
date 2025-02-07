@@ -10,7 +10,7 @@ import org.quartz.*;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2024/8/9 21:08
  * @className : ScheduleUtils
  * @description : 任务调度器工具类

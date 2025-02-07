@@ -7,7 +7,7 @@ import org.springframework.web.servlet.LocaleResolver;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/28下午10:31
  * @className : SpringMessage
  * @description : spring 信息国际化

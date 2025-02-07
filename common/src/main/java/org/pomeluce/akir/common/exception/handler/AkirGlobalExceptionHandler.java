@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * @author : lucas
- * @version 1.0
+ * @version : 1.0
  * @date : 2023/10/28 23:42
  * @className : AkirGlobalExceptionHandler
  * @description : 全局异常处理
