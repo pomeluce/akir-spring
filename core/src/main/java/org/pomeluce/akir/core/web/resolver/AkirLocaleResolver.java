@@ -48,7 +48,7 @@ public class AkirLocaleResolver extends AbstractLocaleResolver {
      * 获取国际化对象
      *
      * @param request 请求对象 {@link HttpServletRequest}
-     * @return 返回一个 Locale 类型的国际化对象
+     * @return 返回一个 Locale {@link Locale} 类型的国际化对象
      */
     @Override
     public @NonNull Locale resolveLocale(@NonNull HttpServletRequest request) {
@@ -73,7 +73,7 @@ public class AkirLocaleResolver extends AbstractLocaleResolver {
      *
      * @param request          请求对象 {@link HttpServletRequest}
      * @param supportedLocales 支持的国际化列表 {@link List}
-     * @return 返回一个 Locale 类型的国际化对象
+     * @return 返回一个 Locale {@link Locale} 类型的国际化对象
      */
     private Locale findSupportedLocale(HttpServletRequest request, List<Locale> supportedLocales) {
         Enumeration<Locale> requestLocales = request.getLocales();
