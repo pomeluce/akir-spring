@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 import org.pomeluce.akir.common.core.domain.BaseEntity;
+import org.pomeluce.akir.core.system.domain.enums.UserGender;
 import org.pomeluce.akir.core.system.domain.enums.UserStatus;
 
 import java.io.Serial;
@@ -35,6 +36,8 @@ public class User extends BaseEntity {
     private String password;
     private String email;
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
+    private @Enumerated(EnumType.STRING) UserGender gender;
+    @JdbcType(value = PostgreSQLEnumJdbcType.class)
     private @Enumerated(EnumType.STRING) UserStatus status;
 
     public User() {
@@ -44,12 +47,12 @@ public class User extends BaseEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && status == user.status;
+        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && gender == user.gender && status == user.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, password, email, status);
+        return Objects.hash(id, account, password, email, gender, status);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class User extends BaseEntity {
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", gender=" + gender +
                 ", status=" + status +
                 "} " + super.toString();
     }
