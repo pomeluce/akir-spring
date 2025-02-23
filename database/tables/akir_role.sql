@@ -4,6 +4,7 @@ create table akir_role
 (
     id          bigserial primary key not null,
     code        varchar(50) unique    not null,
+    name        varchar(50) unique    not null,
     description text,
     create_by   varchar(20),
     create_time timestamp with time zone,
@@ -14,7 +15,8 @@ create table akir_role
 
 comment on table akir_role is '角色表';
 comment on column akir_role.id is '主键';
-comment on column akir_role.code is '角色名称';
+comment on column akir_role.code is '角色编码';
+comment on column akir_role.name is '角色名称';
 comment on column akir_role.description is '角色描述';
 comment on column akir_role.create_by is '创建人';
 comment on column akir_role.create_time is '创建时间';
