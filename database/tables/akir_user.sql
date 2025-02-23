@@ -2,7 +2,7 @@ drop table if exists akir_user;
 drop type if exists akir_user_status;
 drop type if exists akir_user_gender;
 
-create type akir_user_status as enum ('ENABLED', 'DISABLED', 'DELETE');
+create type akir_user_status as enum ('ENABLED', 'DISABLED', 'DELETED');
 create type akir_user_gender as enum ('MALE', 'FEMALE');
 
 create table akir_user

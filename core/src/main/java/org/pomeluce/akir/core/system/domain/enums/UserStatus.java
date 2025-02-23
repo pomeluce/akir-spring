@@ -10,5 +10,5 @@ package org.pomeluce.akir.core.system.domain.enums;
 public enum UserStatus {
     ENABLED,
     DISABLED,
-    DELETE
+    DELETED
 }

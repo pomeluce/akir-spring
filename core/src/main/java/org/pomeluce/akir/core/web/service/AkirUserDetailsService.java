@@ -53,7 +53,7 @@ public class AkirUserDetailsService implements UserDetailsService {
           3. 判断用户是否被锁定
          */
         switch (user.getStatus()) {
-            case DELETE -> {
+            case DELETED -> {
                 log.warn("当前登录用户:{} 已被删除", user.getAccount());
                 throw new AkirServiceException(SpringMessage.message("login.user.deleted", user.getAccount()));
             }

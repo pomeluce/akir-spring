@@ -26,7 +26,7 @@ import java.util.Objects;
 @Table(name = "akir_role")
 public class Role {
     private @Id Long id;
-    private @Column(unique = true) String key;
+    private @Column(unique = true) String code;
     private String description;
 
     public Role() {
@@ -36,19 +36,19 @@ public class Role {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(key, role.key) && Objects.equals(description, role.description);
+        return Objects.equals(id, role.id) && Objects.equals(code, role.code) && Objects.equals(description, role.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, key, description);
+        return Objects.hash(id, code, description);
     }
 
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", key='" + key + '\'' +
+                ", code='" + code + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
