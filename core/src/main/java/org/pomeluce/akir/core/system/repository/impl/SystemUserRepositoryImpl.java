@@ -46,7 +46,6 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
                 .notEmptyLike(user.getAccount(), this.user.account)
                 .notEmptyLike(user.getEmail(), this.user.email)
                 .notEmptyEq(user.getStatus(), this.user.status)
-                .notEmptyEq(user.getRole(), this.user.role)
                 .notEmptyLike(user.getCreateBy(), this.user.createBy)
                 .notEmptyLike(user.getUpdateBy(), this.user.updateBy)
                 .build()

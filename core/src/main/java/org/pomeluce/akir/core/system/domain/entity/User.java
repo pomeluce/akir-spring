@@ -36,22 +36,20 @@ public class User extends BaseEntity {
     private String email;
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
     private @Enumerated(EnumType.STRING) UserStatus status;
-    private String role;
 
     public User() {
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && status == user.status && Objects.equals(role, user.role);
+        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && status == user.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, password, email, status, role);
+        return Objects.hash(id, account, password, email, status);
     }
 
     @Override
@@ -62,7 +60,6 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", status=" + status +
-                ", role='" + role + '\'' +
                 "} " + super.toString();
     }
 }

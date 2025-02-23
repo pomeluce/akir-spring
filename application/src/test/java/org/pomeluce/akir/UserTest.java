@@ -34,7 +34,6 @@ public class UserTest {
                     .password(SecurityUtils.encoderPassword(name + "pass"))
                     .email(name + "@gmail.com")
                     .status(UserStatus.ENABLED)
-                    .role("everyone")
                     .createBy(name)
                     .updateBy(name)
                     .build();

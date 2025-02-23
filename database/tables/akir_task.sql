@@ -6,11 +6,11 @@ create type akir_task_misfire as enum ('DEFAULT');
 create type akir_task_status as enum ('NORMAL', 'PAUSE');
 create table akir_task
 (
-    id              serial primary key not null,
-    name            varchar            not null,
-    target          varchar            not null,
+    id              bigserial primary key not null,
+    name            varchar               not null,
+    target          varchar               not null,
     group_id        varchar,
-    cron_expression varchar            not null,
+    cron_expression varchar               not null,
     misfire_policy  akir_task_misfire default 'DEFAULT',
     status          akir_task_status  default 'NORMAL',
     create_by       varchar(20),

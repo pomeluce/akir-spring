@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.pomeluce</groupId>
         <artifactId>akir-spring</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.3</version>
     </parent>
 
     <artifactId>core</artifactId>
