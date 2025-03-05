@@ -98,7 +98,7 @@ public class AkirTokenService {
         redisClient.hset(CacheKey.TOKEN_LOGIN_USER_KEY.value(), token, user);
         setExpiredTime(token, currentTime + tokenProp.getExpireTime() * MILLIS);
         setRefreshTime(token, currentTime + tokenProp.getRefreshExpireTime() * MILLIS);
-        return token;
+        return CacheKey.TOKEN_PREFIX_KEY.value() + token;
     }
 
     /**
@@ -119,7 +119,7 @@ public class AkirTokenService {
         redisClient.hset(CacheKey.TOKEN_LOGIN_USER_KEY.value(), token, user);
         setExpiredTime(token, currentTime + tokenProp.getExpireTime() * MILLIS);
         setRefreshTime(token, currentTime + tokenProp.getRefreshExpireTime() * MILLIS);
-        return token;
+        return CacheKey.TOKEN_PREFIX_KEY.value() + token;
     }
 
     /**
@@ -293,8 +293,8 @@ public class AkirTokenService {
             is.close();
 
             String content = new String(encodeKey)
-                    .replace("-----BEGIN PRIVATE KEY-----", "")
-                    .replace("-----END PRIVATE KEY-----", "")
+                    .replace("-----BEGIN EC PRIVATE KEY-----", "")
+                    .replace("-----END EC PRIVATE KEY-----", "")
                     .replaceAll("\\s", "");
 
             byte[] decode = Base64.getDecoder().decode(content);

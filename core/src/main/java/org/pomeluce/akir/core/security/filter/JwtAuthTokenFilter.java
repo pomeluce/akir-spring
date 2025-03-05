@@ -4,6 +4,7 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
@@ -42,7 +43,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
                 // 生成新 token
                 String refreshToken = tokenService.refreshToken(token);
                 // 放入 response 请求头
-                response.setHeader("refresh-token", refreshToken);
+                response.setHeader("RefreshToken", refreshToken);
             }
             // 获取用户信息
             LoginUser user = tokenService.getLoginUser(token);
