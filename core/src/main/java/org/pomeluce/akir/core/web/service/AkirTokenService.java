@@ -9,29 +9,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.pomeluce.akir.common.config.AkirProperty;
 import org.pomeluce.akir.common.core.redis.RedisClient;
 import org.pomeluce.akir.common.enums.CacheKey;
-import org.pomeluce.akir.common.exception.AkirServiceException;
 import org.pomeluce.akir.common.utils.StringUtils;
 import org.pomeluce.akir.common.utils.id.IdGenerator;
 import org.pomeluce.akir.common.utils.location.IpAddrUtils;
 import org.pomeluce.akir.common.utils.location.LocationUtils;
+import org.pomeluce.akir.common.utils.security.ECKeyPair;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
 import org.pomeluce.akir.core.system.domain.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author : lucas
@@ -287,22 +283,8 @@ public class AkirTokenService {
      * @return 返回一个 PrivateKey{@link PrivateKey} 类型的私钥
      */
     public PrivateKey getPrivateKey() {
-        try {
-            InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPrivateKey());
-            byte[] encodeKey = Objects.requireNonNull(is).readAllBytes();
-            is.close();
-
-            String content = new String(encodeKey)
-                    .replace("-----BEGIN EC PRIVATE KEY-----", "")
-                    .replace("-----END EC PRIVATE KEY-----", "")
-                    .replaceAll("\\s", "");
-
-            byte[] decode = Base64.getDecoder().decode(content);
-
-            return KeyFactory.getInstance("EC").generatePrivate(new PKCS8EncodedKeySpec(decode));
-        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
-            throw new AkirServiceException(StringUtils.format("failed to parse private key: {}", e.getMessage()));
-        }
+        InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPrivateKey());
+        return ECKeyPair.readPrivateKey(is);
     }
 
     /**
@@ -311,20 +293,7 @@ public class AkirTokenService {
      * @return 返回一个 PublicKey{@link PublicKey} 类型的公钥
      */
     public PublicKey getPublicKey() {
-        try {
-            InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPublicKey());
-            byte[] encodeKey = Objects.requireNonNull(is).readAllBytes();
-            is.close();
-            String content = new String(encodeKey)
-                    .replace("-----BEGIN PUBLIC KEY-----", "")
-                    .replace("-----END PUBLIC KEY-----", "")
-                    .replaceAll("\\s", "");
-
-            byte[] decode = Base64.getDecoder().decode(content);
-
-            return KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(decode));
-        } catch (IOException | InvalidKeySpecException | NoSuchAlgorithmException e) {
-            throw new AkirServiceException(StringUtils.format("failed to parse public key: {}", e.getMessage()));
-        }
+        InputStream is = this.getClass().getResourceAsStream("/" + tokenProp.getPublicKey());
+        return ECKeyPair.readPublicKey(is);
     }
 }
