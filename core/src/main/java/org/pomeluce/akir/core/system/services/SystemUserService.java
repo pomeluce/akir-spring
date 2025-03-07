@@ -21,13 +21,13 @@ public interface SystemUserService {
      * @param pageable 分页信息
      * @return 返回符合条件的用户信息列表
      */
-    List<User> selectUserList(User user, Pageable pageable);
+    List<User> find(User user, Pageable pageable);
 
     /**
-     * 根据用户 id 查询用户信息
+     * 根据用户 account 查询用户信息
      *
-     * @param id 用户 id
+     * @param account 用户 account
      * @return 用户信息
      */
-    User selectUserById(Long id);
+    User findByAccount(Long account);
 }

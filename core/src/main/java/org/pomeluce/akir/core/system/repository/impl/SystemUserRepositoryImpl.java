@@ -40,7 +40,7 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
      * @return 返回符合条件的用户信息集合
      */
     @Override
-    public @Transactional(readOnly = true) Optional<List<User>> findUserList(User user, Pageable pageable) {
+    public @Transactional(readOnly = true) Optional<List<User>> find(User user, Pageable pageable) {
         BlazeJPAQuery<User> query = factory.selectFrom(this.user).where(SelectBooleanBuilder.builder()
                 .notEmptyEq(user.getId(), this.user.id)
                 .notEmptyLike(user.getAccount(), this.user.account)
@@ -60,7 +60,7 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
      * @return 返回用符合条件的用户信息
      */
     @Override
-    public @Transactional(readOnly = true) Optional<User> findUserByAccount(String account) {
+    public @Transactional(readOnly = true) Optional<User> findByAccount(String account) {
         return Optional.ofNullable(factory.selectFrom(this.user).where(this.user.account.eq(account)).fetchOne());
     }
 }

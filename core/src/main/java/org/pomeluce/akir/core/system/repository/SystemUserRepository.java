@@ -24,7 +24,7 @@ public interface SystemUserRepository extends BaseRepository<User, Long> {
      * @param pageable 分页对象
      * @return 返回符合条件的用户信息集合
      */
-    Optional<List<User>> findUserList(User user, Pageable pageable);
+    Optional<List<User>> find(User user, Pageable pageable);
 
     /**
      * 根据账号查询用户
@@ -32,5 +32,5 @@ public interface SystemUserRepository extends BaseRepository<User, Long> {
      * @param account 账号
      * @return 返回用符合条件的用户信息
      */
-    Optional<User> findUserByAccount(String account);
+    Optional<User> findByAccount(String account);
 }

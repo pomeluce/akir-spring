@@ -6,6 +6,7 @@ import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.common.core.domain.HttpEntity;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
+import org.pomeluce.akir.core.system.domain.entity.QUser;
 import org.pomeluce.akir.core.system.domain.entity.User;
 import org.pomeluce.akir.core.system.domain.model.LoginUser;
 import org.pomeluce.akir.core.system.services.SystemUserService;
@@ -29,7 +30,7 @@ public class SystemUserController extends BaseController {
     private @Resource SystemUserService service;
 
     /* 查询当前用户 */
-    public @GetMapping("/current") HttpEntity<User, Object> currentUser() {
+    public @GetMapping("/current") HttpEntity<User, Object> current() {
         LoginUser user = (LoginUser) SecurityUtils.getAuthentication().getPrincipal();
         HttpEntity<User, Object> result = HttpEntity.instance(HttpStatus.OK.value());
         return result.put("当前登录用户", user.getUser()).put(new HashMap<>() {{
@@ -38,14 +39,14 @@ public class SystemUserController extends BaseController {
     }
 
     /* 查询用户列表 */
-    public @GetMapping("/list") HttpEntity<List<User>, Object> list(User user) {
-        List<User> users = service.selectUserList(user, PaginationSupport.pageable());
+    public @GetMapping("/list") HttpEntity<List<User>, Object> find(User user) {
+        List<User> users = service.find(user, PaginationSupport.pageable().setDefaultOrder(QUser.user.id.desc()));
         return success("用户列表查询成功", users);
     }
 
-    /* 根据用户 id 查询用户 */
-    public @GetMapping("/{id}") HttpEntity<User, Object> selectByAccount(@PathVariable(value = "id") Long id) {
-        User user = service.selectUserById(id);
+    /* 根据用户 account 查询用户 */
+    public @GetMapping("/{account}") HttpEntity<User, Object> findByAccount(@PathVariable(value = "account") Long account) {
+        User user = service.findByAccount(account);
         return success("用户查询成功", user);
     }
 }

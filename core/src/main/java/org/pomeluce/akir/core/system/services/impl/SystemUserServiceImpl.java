@@ -29,8 +29,8 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return 返回符合条件的用户信息列表
      */
     @Override
-    public List<User> selectUserList(User user, Pageable pageable) {
-        return repository.findUserList(user, pageable).orElse(List.of());
+    public List<User> find(User user, Pageable pageable) {
+        return repository.find(user, pageable).orElse(List.of());
     }
 
     /**
@@ -40,7 +40,7 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return 用户信息
      */
     @Override
-    public User selectUserById(Long id) {
+    public User findByAccount(Long id) {
         return repository.findById(id).orElse(null);
     }
 }

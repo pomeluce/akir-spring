@@ -41,7 +41,7 @@ public class AkirUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = repository.findUserByAccount(username).orElseThrow(() -> {
+        User user = repository.findByAccount(username).orElseThrow(() -> {
             log.error("当前登录用户:{} 不存在", username);
             return new AkirServiceException(SpringMessage.message("login.user.not.exists", username));
         });

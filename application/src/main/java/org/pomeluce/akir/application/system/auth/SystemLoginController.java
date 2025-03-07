@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @RestApiController("/auth")
 @Tag(name = "登录控制器")
-public class LoginController extends BaseController {
+public class SystemLoginController extends BaseController {
     private @Resource AkirLoginService service;
 
     @Operation(summary = "用户登录")

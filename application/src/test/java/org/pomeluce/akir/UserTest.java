@@ -43,12 +43,12 @@ public class UserTest {
 
     @Test
     void findAkirUserByAccountTest() {
-        System.out.println(repository.findUserByAccount("zhangsan").orElseThrow());
+        System.out.println(repository.findByAccount("zhangsan").orElseThrow());
     }
 
     @Test
     void findUserList() {
-        Optional<List<User>> result = repository.findUserList(User.builder().email("@qq.com").build(), PaginationSupport.pageable().setDefaultOrder(QUser.user.id.desc()));
+        Optional<List<User>> result = repository.find(User.builder().email("@qq.com").build(), PaginationSupport.pageable().setDefaultOrder(QUser.user.id.desc()));
         result.ifPresent(System.out::println);
     }
 }
