@@ -7,7 +7,7 @@ declare
     current_ms     bigint; -- 当前时间戳（毫秒）
     sequence       int; -- 当前序列号
     last_ts        bigint; -- 上次记录的时间戳
-    last_seq       inT; -- 上次记录的序列号
+    last_seq       int; -- 上次记录的序列号
     max_sequence   int    := 4095; -- 序列号最大值（12位）
     result         bigint; -- 生成的id
     host_ip        text   := inet_server_addr()::text; -- 获取数据库服务器 ip

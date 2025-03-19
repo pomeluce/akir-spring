@@ -34,7 +34,9 @@ public class User extends BaseEntity {
     private @Id Long id;
     private @Column(unique = true) String account;
     private String password;
+    private String identityId;
     private String email;
+    private String phone;
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
     private @Enumerated(EnumType.STRING) UserGender gender;
     @JdbcType(value = PostgreSQLEnumJdbcType.class)
@@ -47,12 +49,12 @@ public class User extends BaseEntity {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(email, user.email) && gender == user.gender && status == user.status;
+        return Objects.equals(id, user.id) && Objects.equals(account, user.account) && Objects.equals(password, user.password) && Objects.equals(identityId, user.identityId) && Objects.equals(email, user.email) && Objects.equals(phone, user.phone) && gender == user.gender && status == user.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, account, password, email, gender, status);
+        return Objects.hash(id, account, password, identityId, email, phone, gender, status);
     }
 
     @Override
@@ -61,7 +63,9 @@ public class User extends BaseEntity {
                 "id=" + id +
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +
+                ", identityId='" + identityId + '\'' +
                 ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
                 ", gender=" + gender +
                 ", status=" + status +
                 "} " + super.toString();

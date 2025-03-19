@@ -6,11 +6,11 @@ create type akir_task_misfire as enum ('DEFAULT');
 create type akir_task_status as enum ('NORMAL', 'PAUSE');
 create table akir_task
 (
-    id              bigserial primary key not null,
-    name            varchar               not null,
-    target          varchar               not null,
+    id              bigint primary key not null,
+    name            varchar            not null,
+    target          varchar            not null,
     group_id        varchar,
-    cron_expression varchar               not null,
+    cron_expression varchar            not null,
     misfire_policy  akir_task_misfire default 'DEFAULT',
     status          akir_task_status  default 'NORMAL',
     create_by       varchar(20),
@@ -31,5 +31,3 @@ comment on column akir_task.create_by is '创建人';
 comment on column akir_task.create_time is '创建时间';
 comment on column akir_task.update_by is '更新人';
 comment on column akir_task.update_time is '更新时间';
-
-alter sequence akir_task_id_seq restart with 10000001 increment by 1;

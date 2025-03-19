@@ -1,14 +1,13 @@
 package org.pomeluce.akir.core.system.domain.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -24,7 +23,10 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "akir_role")
-public class Role {
+public class Role implements Serializable {
+    private static final @Serial long serialVersionUID = 1L;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id Long id;
     private @Column(unique = true) String code;
     private @Column(unique = true) String name;
