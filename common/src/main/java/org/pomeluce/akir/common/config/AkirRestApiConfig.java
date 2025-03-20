@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/20 23:40
  * @className : AkirRestApiConfig

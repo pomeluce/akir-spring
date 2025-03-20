@@ -6,7 +6,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.servlet.LocaleResolver;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/28下午10:31
  * @className : SpringMessage

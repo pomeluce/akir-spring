@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/6下午8:47
  * @className : RedisMQ

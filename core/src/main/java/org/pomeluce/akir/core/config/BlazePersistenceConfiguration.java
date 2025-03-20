@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/11 11:24
  * @className : BlazePersistenceConfiguration

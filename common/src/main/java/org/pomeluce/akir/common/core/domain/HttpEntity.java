@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/30上午10:39
  * @className : HttpEntity

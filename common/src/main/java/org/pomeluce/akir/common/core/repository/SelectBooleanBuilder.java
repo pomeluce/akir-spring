@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/12 20:59
  * @className : SelectBooleanBuilder

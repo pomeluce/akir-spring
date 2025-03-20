@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.pomeluce</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>server</artifactId>
         </dependency>
     </dependencies>
 

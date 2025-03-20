@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/29下午3:51
  * @className : AkirProperty

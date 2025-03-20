@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import org.pomeluce.akir.common.exception.AkirServiceException;
 import org.pomeluce.akir.common.exception.user.AkirUserPasswordNotMatchException;
 import org.pomeluce.akir.core.security.context.AuthenticationContextHolder;
-import org.pomeluce.akir.core.system.domain.model.LoginUser;
+import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/27 23:16
  * @className : AkirLoginService

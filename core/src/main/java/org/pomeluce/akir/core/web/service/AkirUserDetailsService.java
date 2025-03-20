@@ -11,9 +11,9 @@ import org.pomeluce.akir.common.utils.ObjectUtils;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
 import org.pomeluce.akir.common.utils.spring.SpringMessage;
 import org.pomeluce.akir.core.security.context.AuthenticationContextHolder;
-import org.pomeluce.akir.core.system.domain.entity.User;
-import org.pomeluce.akir.core.system.domain.model.LoginUser;
-import org.pomeluce.akir.core.system.repository.SystemUserRepository;
+import org.pomeluce.akir.server.system.domain.entity.User;
+import org.pomeluce.akir.server.system.domain.model.LoginUser;
+import org.pomeluce.akir.server.system.repository.SystemUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/27 11:17
  * @className : AkirUserDetailsService

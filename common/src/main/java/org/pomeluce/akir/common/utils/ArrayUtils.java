@@ -1,7 +1,7 @@
 package org.pomeluce.akir.common.utils;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/12 22:29
  * @className : ArrayUtils

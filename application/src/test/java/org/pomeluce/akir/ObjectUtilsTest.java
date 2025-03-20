@@ -2,12 +2,12 @@ package org.pomeluce.akir;
 
 import org.junit.jupiter.api.Test;
 import org.pomeluce.akir.common.utils.ObjectUtils;
-import org.pomeluce.akir.core.system.domain.entity.User;
+import org.pomeluce.akir.server.system.domain.entity.User;
 
 import java.io.Serializable;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/11/12下午12:05
  * @className : ObjectUtilsTest

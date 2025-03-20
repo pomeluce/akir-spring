@@ -3,7 +3,7 @@ package org.pomeluce.akir.common.core.http;
 import org.springframework.http.HttpStatus;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/5下午7:36
  * @className : HttpResult

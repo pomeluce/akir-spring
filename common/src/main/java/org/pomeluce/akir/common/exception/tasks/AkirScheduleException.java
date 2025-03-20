@@ -4,7 +4,7 @@ package org.pomeluce.akir.common.exception.tasks;
 import org.pomeluce.akir.common.enums.ScheduleExceptionCode;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/9 21:12
  * @className : AkirScheduleException

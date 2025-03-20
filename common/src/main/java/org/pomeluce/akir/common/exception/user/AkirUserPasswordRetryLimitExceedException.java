@@ -1,7 +1,7 @@
 package org.pomeluce.akir.common.exception.user;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/10 16:03
  * @className : AkirUserPasswordRetryLimitExceedException

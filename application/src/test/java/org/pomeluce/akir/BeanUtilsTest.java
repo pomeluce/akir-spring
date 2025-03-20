@@ -8,7 +8,7 @@ import java.beans.PropertyDescriptor;
 import java.util.Arrays;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/11/12下午1:49
  * @className : BeanUtilsTest

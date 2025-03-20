@@ -3,7 +3,7 @@ package org.pomeluce.akir.common.exception.user;
 import org.pomeluce.akir.common.exception.base.AkirBaseException;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/28下午6:03
  * @className : AkirUserException

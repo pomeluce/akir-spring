@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import java.util.Objects;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/29下午1:57
  * @className : AuthenticationContextHolder

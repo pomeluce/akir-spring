@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/11/11 16:53
  * @className : BeanUtils

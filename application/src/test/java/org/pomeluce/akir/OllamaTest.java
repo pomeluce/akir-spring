@@ -6,7 +6,7 @@ import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2025/3/5 21:14
  * @className : OllamaTest

@@ -5,7 +5,7 @@ import java.time.ZoneOffset;
 import java.util.UUID;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/28下午8:21
  * @className : IdGenerator

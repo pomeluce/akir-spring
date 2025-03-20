@@ -4,12 +4,11 @@ import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
-import org.pomeluce.akir.core.system.domain.model.LoginUser;
+import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.pomeluce.akir.core.web.service.AkirTokenService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
@@ -21,7 +20,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/14 20:37
  * @className : JwtAuthTokenFilter

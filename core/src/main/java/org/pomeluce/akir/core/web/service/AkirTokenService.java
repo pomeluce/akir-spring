@@ -15,7 +15,7 @@ import org.pomeluce.akir.common.utils.location.IpAddrUtils;
 import org.pomeluce.akir.common.utils.location.LocationUtils;
 import org.pomeluce.akir.common.utils.security.ECKeyPair;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
-import org.pomeluce.akir.core.system.domain.model.LoginUser;
+import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/28 17:22
  * @className : AkirTokenService

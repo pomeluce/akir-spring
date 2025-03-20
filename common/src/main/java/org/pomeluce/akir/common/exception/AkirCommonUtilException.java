@@ -1,7 +1,7 @@
 package org.pomeluce.akir.common.exception;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/9/29 15:29
  * @className : AkirCommonUtilException

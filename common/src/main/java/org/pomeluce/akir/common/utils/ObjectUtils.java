@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/11/11 15:46
  * @className : ObjectUtils

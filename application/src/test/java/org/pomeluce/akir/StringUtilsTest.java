@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.pomeluce.akir.common.utils.StringUtils;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2024/8/11 22:14
  * @className : StringUtilsTest

@@ -1,7 +1,7 @@
 package org.pomeluce.akir.common.exception.user;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2023/10/28 23:07
  * @className : AkirUserNotExistsException

@@ -7,7 +7,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author : lucas
+ * @author : marcus
  * @version : 1.0
  * @date : 2025/1/24 22:50
  * @className : ECKeyPairTest
