@@ -25,9 +25,10 @@ public class Menu extends BaseEntity implements Serializable {
     private @Id long menuId;
     private String code;
     private String label;
+    private Long sort;
     private String show;
     private String disabled;
-    private long parentId;
+    private Long parentId;
     private String target;
 
     public Menu() {
@@ -36,13 +37,22 @@ public class Menu extends BaseEntity implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         Menu menu = (Menu) o;
-        return menuId == menu.menuId && parentId == menu.parentId && Objects.equals(code, menu.code) && Objects.equals(label, menu.label) && Objects.equals(show, menu.show) && Objects.equals(disabled, menu.disabled) && Objects.equals(target, menu.target);
+        return menuId == menu.menuId && Objects.equals(code, menu.code) && Objects.equals(label, menu.label) && Objects.equals(sort, menu.sort) && Objects.equals(show, menu.show) && Objects.equals(disabled, menu.disabled) && Objects.equals(parentId, menu.parentId) && Objects.equals(target, menu.target);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(menuId, code, label, show, disabled, parentId, target);
+        int result = Long.hashCode(menuId);
+        result = 31 * result + Objects.hashCode(code);
+        result = 31 * result + Objects.hashCode(label);
+        result = 31 * result + Objects.hashCode(sort);
+        result = 31 * result + Objects.hashCode(show);
+        result = 31 * result + Objects.hashCode(disabled);
+        result = 31 * result + Objects.hashCode(parentId);
+        result = 31 * result + Objects.hashCode(target);
+        return result;
     }
 
     @Override
@@ -51,6 +61,7 @@ public class Menu extends BaseEntity implements Serializable {
                 "menuId=" + menuId +
                 ", code='" + code + '\'' +
                 ", label='" + label + '\'' +
+                ", sort=" + sort +
                 ", show='" + show + '\'' +
                 ", disabled='" + disabled + '\'' +
                 ", parentId=" + parentId +

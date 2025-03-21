@@ -3,6 +3,7 @@ package org.pomeluce.akir.core.security.handler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.pomeluce.akir.common.core.domain.HttpEntity;
+import org.pomeluce.akir.common.enums.HttpEntityCode;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
 import org.pomeluce.akir.common.utils.spring.SpringMessage;
 import org.springframework.http.HttpStatus;
@@ -25,15 +26,16 @@ public class AuthEntryPointHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         HttpStatus status = Objects.requireNonNullElse(HttpStatus.resolve(response.getStatus()), HttpStatus.UNAUTHORIZED);
-        String message = SpringMessage.message(switch (status) {
+        HttpEntityCode code = switch (status) {
             case HttpStatus.OK, HttpStatus.UNAUTHORIZED -> {
                 status = HttpStatus.UNAUTHORIZED;
-                yield "resource.require.authentication";
+                yield HttpEntityCode.RESOURCE_REQUIRE_AUTHENTICATION;
             }
-            case HttpStatus.FORBIDDEN -> "resource.require.authorization";
-            case HttpStatus.NOT_FOUND -> "resource.not.exist";
-            default -> "resource.access.failed";
-        }, request, ServletClient.getRequestURI());
-        ServletClient.responseBody(response, HttpEntity.instance(status.value(), message));
+            case HttpStatus.FORBIDDEN -> HttpEntityCode.RESOURCE_REQUIRE_AUTHORIZATION;
+            case HttpStatus.NOT_FOUND -> HttpEntityCode.RESOURCE_NOT_EXIST;
+            default -> HttpEntityCode.RESOURCE_ACCESS_FAILED;
+        };
+        String message = SpringMessage.message(code.getContent(), request, ServletClient.getRequestURI());
+        ServletClient.responseBody(response, HttpEntity.instance(code.getStatus(), message), status.value());
     }
 }

@@ -1,5 +1,7 @@
 package org.pomeluce.akir.common.exception.user;
 
+import org.pomeluce.akir.common.enums.HttpEntityCode;
+
 /**
  * @author : marcus
  * @version : 1.0
@@ -9,11 +11,11 @@ package org.pomeluce.akir.common.exception.user;
  */
 public class AkirUserPasswordNotMatchException extends AkirUserException {
     public AkirUserPasswordNotMatchException() {
-        super("login.user.password.not.match");
+        super(HttpEntityCode.LOGIN_USER_PASSWORD_NOT_MATCH.getStatus(), HttpEntityCode.LOGIN_USER_PASSWORD_NOT_MATCH.getContent());
     }
 
     public AkirUserPasswordNotMatchException(String message) {
-        super("login.user.password.not.match", message);
+        super(HttpEntityCode.LOGIN_USER_PASSWORD_NOT_MATCH.getStatus(), HttpEntityCode.LOGIN_USER_PASSWORD_NOT_MATCH.getContent(), message);
     }
 
 }

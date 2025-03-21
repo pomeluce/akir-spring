@@ -1,5 +1,7 @@
 package org.pomeluce.akir.common.exception.user;
 
+import org.pomeluce.akir.common.enums.HttpEntityCode;
+
 /**
  * @author : marcus
  * @version : 1.0
@@ -9,6 +11,6 @@ package org.pomeluce.akir.common.exception.user;
  */
 public class AkirUserNotExistsException extends AkirUserException {
     public AkirUserNotExistsException(Object... args) {
-        super("login.user.not.exists", args);
+        super(HttpEntityCode.LOGIN_USER_NOT_EXISTS.getStatus(), HttpEntityCode.LOGIN_USER_NOT_EXISTS.getContent(), args);
     }
 }

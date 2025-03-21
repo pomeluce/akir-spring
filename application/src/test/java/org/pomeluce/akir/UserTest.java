@@ -4,10 +4,10 @@ import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
-import org.pomeluce.akir.core.system.domain.entity.QUser;
-import org.pomeluce.akir.core.system.domain.entity.User;
-import org.pomeluce.akir.core.system.domain.enums.UserStatus;
-import org.pomeluce.akir.core.system.repository.SystemUserRepository;
+import org.pomeluce.akir.server.system.domain.entity.QUser;
+import org.pomeluce.akir.server.system.domain.entity.User;
+import org.pomeluce.akir.server.system.domain.enums.UserStatus;
+import org.pomeluce.akir.server.system.repository.SystemUserRepository;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;

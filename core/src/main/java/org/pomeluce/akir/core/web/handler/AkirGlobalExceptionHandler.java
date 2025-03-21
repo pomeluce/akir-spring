@@ -1,12 +1,12 @@
-package org.pomeluce.akir.common.exception.handler;
+package org.pomeluce.akir.core.web.handler;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.pomeluce.akir.common.core.domain.HttpEntity;
+import org.pomeluce.akir.common.enums.HttpEntityCode;
 import org.pomeluce.akir.common.exception.AkirServiceException;
 import org.pomeluce.akir.common.exception.user.AkirUserPasswordNotMatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -28,9 +28,9 @@ public class AkirGlobalExceptionHandler {
      * @param e       异常对象 {@link AkirServiceException}
      * @return 返回一个泛型为 String, Object 的 HttpEntity 对象
      */
-    public @ExceptionHandler(AkirServiceException.class) HttpEntity<String, Object> serviceExceptionHandler(HttpServletRequest request, AkirServiceException e) {
+    public @ExceptionHandler(AkirServiceException.class) HttpEntity<String> serviceExceptionHandler(HttpServletRequest request, AkirServiceException e) {
         log.error("发生业务异常: {}", e.getMessage());
-        return HttpEntity.instance(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return HttpEntity.instance(HttpEntityCode.GENERAL_BUSINESS_ERROR.getStatus(), e.getMessage());
     }
 
     /**
@@ -40,8 +40,8 @@ public class AkirGlobalExceptionHandler {
      * @param e       异常对象 {@link AkirUserPasswordNotMatchException}
      * @return 返回一个泛型为 String, Object 的 HttpEntity 对象
      */
-    public @ExceptionHandler(AkirUserPasswordNotMatchException.class) HttpEntity<String, Object> userPasswordNotMatchExceptionHandler(HttpServletRequest request, AkirUserPasswordNotMatchException e) {
+    public @ExceptionHandler(AkirUserPasswordNotMatchException.class) HttpEntity<String> userPasswordNotMatchExceptionHandler(HttpServletRequest request, AkirUserPasswordNotMatchException e) {
         log.error("用户登录发生异常: {}", e.getMessage());
-        return HttpEntity.instance(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+        return HttpEntity.instance(e.getErrorCode(), e.getMessage());
     }
 }

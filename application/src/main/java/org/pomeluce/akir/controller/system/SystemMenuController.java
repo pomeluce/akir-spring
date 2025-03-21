@@ -3,7 +3,7 @@ package org.pomeluce.akir.controller.system;
 import jakarta.annotation.Resource;
 import org.pomeluce.akir.common.annotation.RestApiController;
 import org.pomeluce.akir.common.core.controller.BaseController;
-import org.pomeluce.akir.common.core.domain.HttpEntity;
+import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
 import org.pomeluce.akir.server.system.services.SystemMenuService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class SystemMenuController extends BaseController {
 
     private @Resource SystemMenuService service;
 
-    public @GetMapping("/list") HttpEntity<List<Menu>, Object> find(Menu menu) {
-        return null;
+    public @GetMapping("/list") List<Menu> find(Menu menu) {
+        return service.find(menu, PaginationSupport.pageable());
     }
 }

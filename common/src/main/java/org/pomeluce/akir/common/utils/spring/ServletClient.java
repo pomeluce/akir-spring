@@ -131,11 +131,10 @@ public class ServletClient {
      * @param response   HTTP 响应对象 {@link HttpServletResponse}
      * @param httpEntity HTTP 响应实体 {@link HttpEntity}
      * @param <K>        HTTP 响应实体的 key 类型
-     * @param <V>        HTTP 响应实体的 value 类型
      * @throws IOException IO 异常
      */
-    public static <K, V> void responseBody(HttpServletResponse response, HttpEntity<K, V> httpEntity) throws IOException {
-        response.setStatus(httpEntity.getCode());
+    public static <K> void responseBody(HttpServletResponse response, HttpEntity<K> httpEntity, int status) throws IOException {
+        response.setStatus(status);
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.write(JacksonUtils.toJsonString(httpEntity));

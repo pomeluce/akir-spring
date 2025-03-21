@@ -4,12 +4,9 @@ import jakarta.annotation.Resource;
 import org.pomeluce.akir.common.config.AkirProperty;
 import org.pomeluce.akir.common.core.redis.RedisClient;
 import org.pomeluce.akir.common.enums.CacheKey;
-import org.pomeluce.akir.common.exception.AkirServiceException;
-import org.pomeluce.akir.common.exception.user.AkirUserPasswordNotMatchException;
-import org.pomeluce.akir.common.exception.user.AkirUserPasswordRetryLimitExceedException;
+import org.pomeluce.akir.common.exception.user.*;
 import org.pomeluce.akir.common.utils.ObjectUtils;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
-import org.pomeluce.akir.common.utils.spring.SpringMessage;
 import org.pomeluce.akir.core.security.context.AuthenticationContextHolder;
 import org.pomeluce.akir.server.system.domain.entity.User;
 import org.pomeluce.akir.server.system.domain.model.LoginUser;
@@ -43,7 +40,7 @@ public class AkirUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = repository.findByAccount(username).orElseThrow(() -> {
             log.error("当前登录用户:{} 不存在", username);
-            return new AkirServiceException(SpringMessage.message("login.user.not.exists", username));
+            return new AkirUserNotExistsException(username);
         });
 
         /*
@@ -55,11 +52,11 @@ public class AkirUserDetailsService implements UserDetailsService {
         switch (user.getStatus()) {
             case DELETED -> {
                 log.warn("当前登录用户:{} 已被删除", user.getAccount());
-                throw new AkirServiceException(SpringMessage.message("login.user.deleted", user.getAccount()));
+                throw new AkirUserDeletedException();
             }
             case DISABLED -> {
                 log.warn("当前登录用户:{} 已被禁用", user.getAccount());
-                throw new AkirServiceException(SpringMessage.message("login.user.disabled", user.getAccount()));
+                throw new AkirUserDisabledException();
             }
             case ENABLED -> isLock(user);
         }

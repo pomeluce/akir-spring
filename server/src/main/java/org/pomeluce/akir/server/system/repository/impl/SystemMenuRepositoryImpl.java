@@ -47,7 +47,7 @@ public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> imp
                 .notEmptyEq(menu.getDisabled(), this.menu.disabled)
                 .notEmptyLike(menu.getTarget(), this.menu.target)
                 .build()
-        );
+        ).orderBy(this.menu.menuId.asc());
         return Optional.of(this.fetchPage(query, pageable).orElseGet(query::fetch));
     }
 }

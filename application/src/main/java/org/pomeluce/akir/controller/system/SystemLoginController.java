@@ -25,9 +25,7 @@ public class SystemLoginController extends BaseController {
     private @Resource AkirLoginService service;
 
     @Operation(summary = "用户登录")
-    public @PostMapping("/login") HttpEntity<String, Object> login(@RequestBody LoginBody loginBody) {
-        String token = service.login(loginBody.account(), loginBody.password());
-        HttpEntity<String, Object> result = HttpEntity.instance(HttpStatus.OK.value());
-        return result.put("用户登录成功", token);
+    public @PostMapping("/login") String login(@RequestBody LoginBody loginBody) {
+        return service.login(loginBody.account(), loginBody.password());
     }
 }

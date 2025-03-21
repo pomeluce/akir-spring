@@ -1,5 +1,7 @@
 package org.pomeluce.akir.common.exception.user;
 
+import org.pomeluce.akir.common.enums.HttpEntityCode;
+
 /**
  * @author : marcus
  * @version : 1.0
@@ -9,6 +11,6 @@ package org.pomeluce.akir.common.exception.user;
  */
 public class AkirUserPasswordRetryLimitExceedException extends AkirUserException {
     public AkirUserPasswordRetryLimitExceedException(Integer maxRetries, Integer lockTime) {
-        super("login.user.password.retry.limit.exceed", maxRetries, lockTime);
+        super(HttpEntityCode.LOGIN_USER_PASSWORD_RETRY_LIMIT_EXCEED.getStatus(), HttpEntityCode.LOGIN_USER_PASSWORD_RETRY_LIMIT_EXCEED.getContent(), maxRetries, lockTime);
     }
 }

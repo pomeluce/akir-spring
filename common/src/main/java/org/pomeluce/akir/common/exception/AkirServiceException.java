@@ -21,6 +21,10 @@ public class AkirServiceException extends RuntimeException {
         return message;
     }
 
+    public String getModule() {
+        return "business";
+    }
+
     public AkirServiceException setMessage(String message) {
         this.message = message;
         return this;

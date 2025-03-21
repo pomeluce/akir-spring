@@ -1,5 +1,6 @@
 package org.pomeluce.akir.common.exception.user;
 
+import lombok.Getter;
 import org.pomeluce.akir.common.exception.base.AkirBaseException;
 
 /**
@@ -9,16 +10,22 @@ import org.pomeluce.akir.common.exception.base.AkirBaseException;
  * @className : AkirUserException
  * @description : 用户异常
  */
+@Getter
 public class AkirUserException extends AkirBaseException {
-    public AkirUserException(String key) {
+    private final String errorCode;
+
+    public AkirUserException(String errorCode, String key) {
         super("user", key);
+        this.errorCode = errorCode;
     }
 
-    public AkirUserException(String key, String message) {
+    public AkirUserException(String errorCode, String key, String message) {
         super("user", key, message);
+        this.errorCode = errorCode;
     }
 
-    public AkirUserException(String key, Object... args) {
+    public AkirUserException(String errorCode, String key, Object... args) {
         super("user", key, args);
+        this.errorCode = errorCode;
     }
 }
