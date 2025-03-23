@@ -71,6 +71,11 @@ public class SelectBooleanBuilder {
         return this;
     }
 
+    public SelectBooleanBuilder notEmptyEq(Boolean param, BooleanPath path) {
+        if (ObjectUtils.isNotEmpty(param)) builder.and(path.eq(param));
+        return this;
+    }
+
     public <T extends Number & Comparable<?>> SelectBooleanBuilder notEmptyEq(T param, NumberPath<T> path) {
         if (ObjectUtils.isNotEmpty(param)) builder.and(path.eq(param));
         return this;

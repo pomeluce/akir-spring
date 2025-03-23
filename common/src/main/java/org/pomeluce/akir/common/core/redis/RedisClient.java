@@ -74,10 +74,10 @@ public class RedisClient {
      *
      * @param key    key 值 {@link String}
      * @param value  value 值 {@link Object}
-     * @param expire 过期时间 {@link Integer}
+     * @param expire 过期时间 {@link Long}
      * @param unit   时间单位 {@link TimeUnit}
      */
-    public void set(String key, Object value, Integer expire, TimeUnit unit) {
+    public void set(String key, Object value, Long expire, TimeUnit unit) {
         redisTemplate.opsForValue().set(key, value, expire, unit);
     }
 
@@ -98,10 +98,10 @@ public class RedisClient {
      * @param key    key {@link String}
      * @param field  属性 {@link String}
      * @param value  值 {@link Object}
-     * @param expire 过期时间 {@link Integer}
+     * @param expire 过期时间 {@link Long}
      * @param unit   时间单位 {@link TimeUnit}
      */
-    public void hset(String key, String field, Object value, Integer expire, TimeUnit unit) {
+    public void hset(String key, String field, Object value, Long expire, TimeUnit unit) {
         redisTemplate.opsForHash().put(key, field, value);
         redisTemplate.expire(key, expire, unit);
     }

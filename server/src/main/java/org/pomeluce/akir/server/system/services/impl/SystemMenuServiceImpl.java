@@ -1,7 +1,6 @@
 package org.pomeluce.akir.server.system.services.impl;
 
 import jakarta.annotation.Resource;
-import org.pomeluce.akir.common.core.page.Pageable;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
 import org.pomeluce.akir.server.system.repository.SystemMenuRepository;
 import org.pomeluce.akir.server.system.services.SystemMenuService;
@@ -23,12 +22,11 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     /**
      * 查询菜单列表
      *
-     * @param menu     查询条件
-     * @param pageable 分页信息
+     * @param menu 查询条件
      * @return 返回符合条件的菜单信息列表
      */
     @Override
-    public List<Menu> find(Menu menu, Pageable pageable) {
-        return repository.find(menu, pageable).orElse(List.of());
+    public List<Menu> find(Menu menu) {
+        return repository.find(menu).orElse(List.of());
     }
 }

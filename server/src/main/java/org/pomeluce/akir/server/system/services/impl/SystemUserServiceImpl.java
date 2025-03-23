@@ -34,13 +34,22 @@ public class SystemUserServiceImpl implements SystemUserService {
     }
 
     /**
+     * 根据账号查询用户信息
+     * @param account 用户名
+     * @return 用户信息
+     */
+    public User findByAccount(String account) {
+        return  repository.findByAccount(account).orElse(null);
+    }
+
+    /**
      * 根据用户 id 查询用户信息
      *
      * @param id 用户 id
      * @return 用户信息
      */
     @Override
-    public User findByAccount(Long id) {
+    public User findById(Long id) {
         return repository.findById(id).orElse(null);
     }
 }

@@ -4,10 +4,10 @@ package org.pomeluce.akir.common.constants;
  * @author : marcus
  * @version : 1.0
  * @date : 2024/8/9 21:09
- * @className : ScheduleKey
- * @description : 定时任务枚举
+ * @className : ScheduleKeyConstants
+ * @description : 定时任务常量
  */
-public class ScheduleKey {
+public class ScheduleKeyConstants {
     /**
      * 任务名称
      */

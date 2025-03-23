@@ -19,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
+
 /**
  * @author : marcus
  * @version : 1.0
@@ -64,10 +66,18 @@ public class SecurityConfiguration {
      * @return 返回一个 CorsConfigurationSource 跨域资源共享 (CORS) 的类
      */
     public @Bean CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(property.getCors().getAllowedOrigins());
-        configuration.setAllowedMethods(property.getCors().getAllowedMethods());
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+        AkirProperty.Cors cors = property.getCors();
+        if (cors.isEnabled()) {
+            ArrayList<String> exposedHeaders = new ArrayList<>(cors.getExposeHeaders());
+            exposedHeaders.add(property.getToken().getRefreshHeader());
+            configuration.setAllowedOrigins(cors.getAllowedOrigins());
+            configuration.setAllowedMethods(cors.getAllowedMethods());
+            configuration.setAllowedHeaders(cors.getAllowedHeaders());
+            configuration.setAllowCredentials(cors.isAllowedCredentials());
+            configuration.setExposedHeaders(exposedHeaders);
+        }
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

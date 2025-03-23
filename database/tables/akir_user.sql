@@ -8,14 +8,15 @@ create type akir_user_gender as enum ('MALE', 'FEMALE');
 create table akir_user
 (
     id          bigint primary key not null,
-    account     varchar(20) unique    not null,
-    password    varchar(100)          not null,
-    username    varchar(100)          not null,
+    account     varchar(20) unique not null,
+    password    varchar(100)       not null,
+    username    varchar(100)       not null,
     gender      akir_user_gender default 'MALE',
     status      akir_user_status default 'ENABLED',
     identity_id varchar(18),
     email       varchar(50),
     phone       varchar(20),
+    avatar      varchar(100),
     create_by   varchar(20),
     create_time timestamp with time zone,
     update_by   varchar(20),

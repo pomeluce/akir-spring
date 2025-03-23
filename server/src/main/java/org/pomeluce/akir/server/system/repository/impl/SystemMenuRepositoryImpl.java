@@ -3,7 +3,6 @@ package org.pomeluce.akir.server.system.repository.impl;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.blazebit.persistence.querydsl.BlazeJPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import org.pomeluce.akir.common.core.page.Pageable;
 import org.pomeluce.akir.common.core.repository.BaseRepositoryImpl;
 import org.pomeluce.akir.common.core.repository.SelectBooleanBuilder;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
@@ -32,14 +31,13 @@ public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> imp
     }
 
     /**
-     * 根据条件查询菜单, 分页
+     * 根据条件查询菜单
      *
-     * @param menu     查询条件
-     * @param pageable 分页对象
+     * @param menu 查询条件
      * @return 返回符合条件的菜单信息集合
      */
     @Override
-    public @Transactional(readOnly = true) Optional<List<Menu>> find(Menu menu, Pageable pageable) {
+    public @Transactional(readOnly = true) Optional<List<Menu>> find(Menu menu) {
         BlazeJPAQuery<Menu> query = factory.selectFrom(this.menu).where(SelectBooleanBuilder.builder()
                 .notEmptyEq(menu.getCode(), this.menu.code)
                 .notEmptyLike(menu.getLabel(), this.menu.label)
@@ -47,7 +45,7 @@ public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> imp
                 .notEmptyEq(menu.getDisabled(), this.menu.disabled)
                 .notEmptyLike(menu.getTarget(), this.menu.target)
                 .build()
-        ).orderBy(this.menu.menuId.asc());
-        return Optional.of(this.fetchPage(query, pageable).orElseGet(query::fetch));
+        );
+        return Optional.of(query.fetch());
     }
 }

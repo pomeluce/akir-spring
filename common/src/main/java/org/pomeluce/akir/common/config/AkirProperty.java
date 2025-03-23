@@ -60,20 +60,26 @@ public class AkirProperty {
         private String issuer;
         private int expireTime;
         private int refreshExpireTime;
-        private String headerKey;
+        private int transitionTime = 15;
+        private String accessHeader;
+        private String refreshHeader;
     }
 
     @Getter
     @Setter
     public static class Cors {
+        private boolean enabled = false;
         private List<String> allowedOrigins;
         private List<String> allowedMethods;
+        private List<String> allowedHeaders;
+        private List<String> exposeHeaders;
+        private boolean allowedCredentials = false;
     }
 
     @Getter
     @Setter
     public static class User {
         private Integer maxRetries;
-        private Integer lockTime;
+        private Long lockTime;
     }
 }

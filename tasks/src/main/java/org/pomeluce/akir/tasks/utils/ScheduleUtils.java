@@ -1,6 +1,6 @@
 package org.pomeluce.akir.tasks.utils;
 
-import org.pomeluce.akir.common.constants.ScheduleKey;
+import org.pomeluce.akir.common.constants.ScheduleKeyConstants;
 import org.pomeluce.akir.common.enums.ScheduleExceptionCode;
 import org.pomeluce.akir.common.exception.tasks.AkirScheduleException;
 import org.pomeluce.akir.common.utils.StringUtils;
@@ -17,11 +17,11 @@ import org.quartz.*;
  */
 public class ScheduleUtils {
     public static JobKey getJobKey(Long id, String group) {
-        return JobKey.jobKey(StringUtils.format("{}_{}", ScheduleKey.TASK_KEY, id), group);
+        return JobKey.jobKey(StringUtils.format("{}_{}", ScheduleKeyConstants.TASK_KEY, id), group);
     }
 
     public static TriggerKey getTriggerKey(Long id, String group) {
-        return TriggerKey.triggerKey(StringUtils.format("{}_{}", ScheduleKey.TASK_KEY, id), group);
+        return TriggerKey.triggerKey(StringUtils.format("{}_{}", ScheduleKeyConstants.TASK_KEY, id), group);
     }
 
     /**
@@ -46,7 +46,7 @@ public class ScheduleUtils {
         CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(id, group)).withSchedule(cronScheduleBuilder).build();
 
         // 保存任务信息
-        detail.getJobDataMap().put(ScheduleKey.CONTEXT_KEY, context);
+        detail.getJobDataMap().put(ScheduleKeyConstants.CONTEXT_KEY, context);
 
         // 判断任务是否存在
         if (scheduler.checkExists(jobKey)) scheduler.deleteJob(jobKey);

@@ -1,6 +1,5 @@
 package org.pomeluce.akir.server.system.repository;
 
-import org.pomeluce.akir.common.core.page.Pageable;
 import org.pomeluce.akir.common.core.repository.BaseRepository;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -19,11 +18,10 @@ import java.util.Optional;
 public interface SystemMenuRepository extends BaseRepository<Menu, Long> {
 
     /**
-     * 根据条件查询菜单, 分页
+     * 根据条件查询菜单
      *
-     * @param menu     查询条件
-     * @param pageable 分页对象
+     * @param menu 查询条件
      * @return 返回符合条件的菜单信息集合
      */
-    Optional<List<Menu>> find(Menu menu, Pageable pageable);
+    Optional<List<Menu>> find(Menu menu);
 }

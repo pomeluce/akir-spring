@@ -28,6 +28,8 @@ public class LoginUser implements UserDetails {
 
     // 用户唯一标识
     private String uid;
+    // 用户授权令牌
+    private String token;
     // 登录 ip
     private String ip;
     // 登录地点
@@ -91,32 +93,24 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LoginUser loginUser)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (!Objects.equals(uid, loginUser.uid)) return false;
-        if (!Objects.equals(ip, loginUser.ip)) return false;
-        if (!Objects.equals(location, loginUser.location)) return false;
-        if (!Objects.equals(browser, loginUser.browser)) return false;
-        if (!Objects.equals(os, loginUser.os)) return false;
-        if (!Objects.equals(user, loginUser.user)) return false;
-        if (!Objects.equals(expireTime, loginUser.expireTime)) return false;
-        if (!Objects.equals(refreshTime, loginUser.refreshTime))
-            return false;
-        return Objects.equals(permissions, loginUser.permissions);
+        LoginUser loginUser = (LoginUser) o;
+        return Objects.equals(uid, loginUser.uid) && Objects.equals(token, loginUser.token) && Objects.equals(ip, loginUser.ip) && Objects.equals(location, loginUser.location) && Objects.equals(browser, loginUser.browser) && Objects.equals(os, loginUser.os) && Objects.equals(user, loginUser.user) && Objects.equals(expireTime, loginUser.expireTime) && Objects.equals(refreshTime, loginUser.refreshTime) && Objects.equals(permissions, loginUser.permissions);
     }
 
     @Override
     public int hashCode() {
-        int result = uid != null ? uid.hashCode() : 0;
-        result = 31 * result + (ip != null ? ip.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (browser != null ? browser.hashCode() : 0);
-        result = 31 * result + (os != null ? os.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (expireTime != null ? expireTime.hashCode() : 0);
-        result = 31 * result + (refreshTime != null ? refreshTime.hashCode() : 0);
-        result = 31 * result + (permissions != null ? permissions.hashCode() : 0);
+        int result = Objects.hashCode(uid);
+        result = 31 * result + Objects.hashCode(token);
+        result = 31 * result + Objects.hashCode(ip);
+        result = 31 * result + Objects.hashCode(location);
+        result = 31 * result + Objects.hashCode(browser);
+        result = 31 * result + Objects.hashCode(os);
+        result = 31 * result + Objects.hashCode(user);
+        result = 31 * result + Objects.hashCode(expireTime);
+        result = 31 * result + Objects.hashCode(refreshTime);
+        result = 31 * result + Objects.hashCode(permissions);
         return result;
     }
 
@@ -124,6 +118,7 @@ public class LoginUser implements UserDetails {
     public String toString() {
         return "LoginUser{" +
                 "uid='" + uid + '\'' +
+                ", token='" + token + '\'' +
                 ", ip='" + ip + '\'' +
                 ", location='" + location + '\'' +
                 ", browser='" + browser + '\'' +

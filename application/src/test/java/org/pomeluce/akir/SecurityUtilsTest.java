@@ -28,7 +28,7 @@ public class SecurityUtilsTest {
     }
 
     public @Test void encoderPasswordTest() {
-        System.out.println(SecurityUtils.encoderPassword("123456"));
+        System.out.println(SecurityUtils.encoderPassword("12345678"));
     }
 
     public @Test void getJwtTest() {

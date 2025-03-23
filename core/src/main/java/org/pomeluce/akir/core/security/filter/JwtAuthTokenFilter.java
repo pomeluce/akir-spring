@@ -1,23 +1,28 @@
 package org.pomeluce.akir.core.security.filter;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.micrometer.common.util.StringUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.pomeluce.akir.common.config.AkirProperty;
+import org.pomeluce.akir.common.constants.JwtKeyConstants;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
-import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.pomeluce.akir.core.web.service.AkirTokenService;
+import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author : marcus
@@ -28,30 +33,54 @@ import java.util.Objects;
  */
 @Configuration
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
+    private @Resource AkirProperty property;
     private @Resource AkirTokenService tokenService;
+    private final ConcurrentHashMap<String, Object> LOCK_MAP = new ConcurrentHashMap<>();
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         ServletClient.setRequestURI(request.getRequestURI());
-        // 从请求头获取 token
         String token = tokenService.getToken(request);
-        // 判断 token 是否为空, 检查 token 是否有效, 是否在黑名单中, 是否已认证
-        if (Objects.isNull(SecurityUtils.getAuthentication()) && StringUtils.isNotEmpty(token) && tokenService.checkToken(token) && tokenService.isNotBlackList(token)) {
-            // 判断 token 是否过期, 将过期 token 加入黑名单, 判断是否可以刷新 token
-            if (tokenService.isExpiredAndBlackList(token) && tokenService.isRefresh(token)) {
-                // 生成新 token
-                String refreshToken = tokenService.refreshToken(token);
-                // 放入 response 请求头
-                response.setHeader("RefreshToken", refreshToken);
+        try {
+            // 判断并获取认证信息进行验证
+            if (Objects.isNull(SecurityUtils.getAuthentication()) && StringUtils.isNotBlank(token) && tokenService.checkToken(token)) {
+                Optional.ofNullable(tokenService.getAuthentication(token)).ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
             }
-            // 获取用户信息
-            LoginUser user = tokenService.getLoginUser(token);
-            if (!Objects.isNull(user)) {
-                // 如果用户信息不为空, 则将用户信息放入 SecurityContext 中
-                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }
+        } catch (ExpiredJwtException e) {
+            handleExpiredToken(e, token, response);
         }
         filterChain.doFilter(request, response);
+    }
+
+    private void handleExpiredToken(ExpiredJwtException e, String token, HttpServletResponse response) {
+        Claims claims = e.getClaims();
+        String username = claims.getSubject();
+        String uid = claims.get(JwtKeyConstants.TOKEN_UID_CLAIM, String.class);
+        synchronized (getUserLock(username)) {
+            tokenService.getLoginUser(username).ifPresent(user -> {
+                boolean isWithinRefreshTime = System.currentTimeMillis() <= user.getRefreshTime();
+                if (user.getToken().equals(token) && user.getUid().equals(uid) && isWithinRefreshTime) refreshUserToken(user, token, response);
+                else verifyTransitionToken(user, token, uid, username);
+            });
+        }
+    }
+
+    private void refreshUserToken(LoginUser user, String token, HttpServletResponse response) {
+        String refreshToken = tokenService.refreshToken(user);
+        tokenService.setTransitionToken(user.getUsername(), token);
+        Optional.ofNullable(tokenService.getAuthentication(refreshToken)).ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
+        response.setHeader(property.getToken().getRefreshHeader(), JwtKeyConstants.TOKEN_PREFIX + refreshToken);
+    }
+
+    private void verifyTransitionToken(LoginUser user, String token, String uid, String username) {
+        tokenService.getTransitionToken(user.getUsername()).ifPresent(t -> {
+            if (t.equals(token) && user.getUid().equals(uid)) {
+                Optional.ofNullable(tokenService.getTransitionAuthentication(username, token)).ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
+            }
+        });
+    }
+
+    private Object getUserLock(String username) {
+        return LOCK_MAP.computeIfAbsent(username, key -> new Object());
     }
 }

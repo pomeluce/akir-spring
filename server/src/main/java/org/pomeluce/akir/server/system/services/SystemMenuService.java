@@ -1,6 +1,5 @@
 package org.pomeluce.akir.server.system.services;
 
-import org.pomeluce.akir.common.core.page.Pageable;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
 
 import java.util.List;
@@ -16,9 +15,8 @@ public interface SystemMenuService {
     /**
      * 查询菜单列表
      *
-     * @param menu     查询条件
-     * @param pageable 分页信息
+     * @param menu 查询条件
      * @return 返回符合条件的菜单信息列表
      */
-    List<Menu> find(Menu menu, Pageable pageable);
+    List<Menu> find(Menu menu);
 }

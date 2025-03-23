@@ -10,7 +10,7 @@ import org.pomeluce.akir.common.enums.HttpEntityCode;
  * @description :  用户密码重试次数超限异常
  */
 public class AkirUserPasswordRetryLimitExceedException extends AkirUserException {
-    public AkirUserPasswordRetryLimitExceedException(Integer maxRetries, Integer lockTime) {
+    public AkirUserPasswordRetryLimitExceedException(Integer maxRetries, Long lockTime) {
         super(HttpEntityCode.LOGIN_USER_PASSWORD_RETRY_LIMIT_EXCEED.getStatus(), HttpEntityCode.LOGIN_USER_PASSWORD_RETRY_LIMIT_EXCEED.getContent(), maxRetries, lockTime);
     }
 }

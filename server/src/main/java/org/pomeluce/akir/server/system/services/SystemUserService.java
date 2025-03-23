@@ -24,10 +24,17 @@ public interface SystemUserService {
     List<User> find(User user, Pageable pageable);
 
     /**
+     * 根据账号查询用户信息
+     * @param account 用户名
+     * @return 用户信息
+     */
+    User findByAccount(String account);
+
+    /**
      * 根据用户 account 查询用户信息
      *
      * @param account 用户 account
      * @return 用户信息
      */
-    User findByAccount(Long account);
+    User findById(Long account);
 }

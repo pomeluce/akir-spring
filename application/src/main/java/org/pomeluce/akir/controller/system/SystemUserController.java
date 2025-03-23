@@ -6,7 +6,6 @@ import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
 import org.pomeluce.akir.server.system.domain.entity.User;
-import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.pomeluce.akir.server.system.services.SystemUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +26,8 @@ public class SystemUserController extends BaseController {
 
     /* 查询当前用户 */
     public @GetMapping("/current") User current() {
-        LoginUser user = (LoginUser) SecurityUtils.getAuthentication().getPrincipal();
-        return user.getUser();
+        String account = (String) SecurityUtils.getAuthentication().getPrincipal();
+        return service.findByAccount(account);
     }
 
     /* 查询用户列表 */
@@ -36,8 +35,8 @@ public class SystemUserController extends BaseController {
         return service.find(user, PaginationSupport.pageable());
     }
 
-    /* 根据用户 account 查询用户 */
-    public @GetMapping("/{account}") User findByAccount(@PathVariable(value = "account") Long account) {
-        return service.findByAccount(account);
+    /* 根据用户 id 查询用户 */
+    public @GetMapping("/{id}") User findById(@PathVariable(value = "id") Long id) {
+        return service.findById(id);
     }
 }

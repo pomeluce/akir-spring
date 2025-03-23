@@ -2,8 +2,8 @@ package org.pomeluce.akir.core.web.service;
 
 import jakarta.annotation.Resource;
 import org.pomeluce.akir.common.config.AkirProperty;
+import org.pomeluce.akir.common.constants.RedisKeyConstants;
 import org.pomeluce.akir.common.core.redis.RedisClient;
-import org.pomeluce.akir.common.enums.CacheKey;
 import org.pomeluce.akir.common.exception.user.*;
 import org.pomeluce.akir.common.utils.ObjectUtils;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
@@ -76,8 +76,8 @@ public class AkirUserDetailsService implements UserDetailsService {
         Authentication context = AuthenticationContextHolder.getContext();
         String account = context.getName();
         Integer maxRetries = property.getUser().getMaxRetries();
-        Integer lockTime = property.getUser().getLockTime();
-        Integer count = ObjectUtils.isEmpty(redisClient.hget(CacheKey.PASSWORD_RETRIES_KEY.value(), account), 0);
+        Long lockTime = property.getUser().getLockTime();
+        Integer count = ObjectUtils.isEmpty(redisClient.hget(RedisKeyConstants.PASSWORD_RETRIES_KEY, account), 0);
 
         // 校验错误次数
         if (count >= maxRetries) {
@@ -87,13 +87,13 @@ public class AkirUserDetailsService implements UserDetailsService {
 
         // 校验登录密码
         if (!SecurityUtils.matches(context.getCredentials().toString(), user.getPassword())) {
-            redisClient.hset(CacheKey.PASSWORD_RETRIES_KEY.value(), account, ++count, lockTime, TimeUnit.MINUTES);
+            redisClient.hset(RedisKeyConstants.PASSWORD_RETRIES_KEY, account, ++count, lockTime, TimeUnit.MINUTES);
             log.warn("当前登录用户:{} 密码错误", user.getAccount());
             throw new AkirUserPasswordNotMatchException();
         }
         // 登录成功, 清空错误次数
         else {
-            redisClient.hdel(CacheKey.PASSWORD_RETRIES_KEY.value(), account);
+            redisClient.hdel(RedisKeyConstants.PASSWORD_RETRIES_KEY, account);
         }
     }
 }

@@ -22,12 +22,12 @@ public class Menu extends BaseEntity implements Serializable {
     private static final @Serial long serialVersionUID = 1L;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id long menuId;
+    private @Id Long menuId;
     private String code;
     private String label;
     private Long sort;
-    private String show;
-    private String disabled;
+    private Boolean show;
+    private Boolean disabled;
     private Long parentId;
     private String target;
 
@@ -39,12 +39,12 @@ public class Menu extends BaseEntity implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Menu menu = (Menu) o;
-        return menuId == menu.menuId && Objects.equals(code, menu.code) && Objects.equals(label, menu.label) && Objects.equals(sort, menu.sort) && Objects.equals(show, menu.show) && Objects.equals(disabled, menu.disabled) && Objects.equals(parentId, menu.parentId) && Objects.equals(target, menu.target);
+        return Objects.equals(menuId, menu.menuId) && Objects.equals(code, menu.code) && Objects.equals(label, menu.label) && Objects.equals(sort, menu.sort) && Objects.equals(show, menu.show) && Objects.equals(disabled, menu.disabled) && Objects.equals(parentId, menu.parentId) && Objects.equals(target, menu.target);
     }
 
     @Override
     public int hashCode() {
-        int result = Long.hashCode(menuId);
+        int result = Objects.hashCode(menuId);
         result = 31 * result + Objects.hashCode(code);
         result = 31 * result + Objects.hashCode(label);
         result = 31 * result + Objects.hashCode(sort);
@@ -62,8 +62,8 @@ public class Menu extends BaseEntity implements Serializable {
                 ", code='" + code + '\'' +
                 ", label='" + label + '\'' +
                 ", sort=" + sort +
-                ", show='" + show + '\'' +
-                ", disabled='" + disabled + '\'' +
+                ", show=" + show +
+                ", disabled=" + disabled +
                 ", parentId=" + parentId +
                 ", target='" + target + '\'' +
                 "} " + super.toString();
