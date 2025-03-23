@@ -1,7 +1,11 @@
 package org.pomeluce.akir.core.web.service;
 
 import jakarta.annotation.Resource;
+import org.pomeluce.akir.common.constants.RedisKeyConstants;
+import org.pomeluce.akir.common.core.redis.RedisClient;
 import org.pomeluce.akir.common.exception.AkirServiceException;
+import org.pomeluce.akir.common.exception.user.AkirUserCaptchaException;
+import org.pomeluce.akir.common.exception.user.AkirUserCaptchaExpiredException;
 import org.pomeluce.akir.common.exception.user.AkirUserPasswordNotMatchException;
 import org.pomeluce.akir.core.security.context.AuthenticationContextHolder;
 import org.pomeluce.akir.server.system.domain.model.LoginUser;
@@ -10,6 +14,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * @author : marcus
@@ -22,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class AkirLoginService {
     private @Resource AuthenticationManager authenticationManager;
     private @Resource AkirTokenService tokenService;
+    private @Resource RedisClient redisClient;
 
     /**
      * 用户登录
@@ -50,5 +57,17 @@ public class AkirLoginService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         // 返回结果
         return tokenService.accessToken(loginUser);
+    }
+
+    /**
+     * 校验验证码是否正确
+     *
+     * @param uid  验证码 key {@link String}
+     * @param code 验证码 {@link String}
+     */
+    public void verifyCaptcha(String uid, String code) {
+        String answer = Optional.ofNullable((String) redisClient.hget(RedisKeyConstants.CAPTCHA_ANSWER_KEY, uid)).orElseThrow(AkirUserCaptchaExpiredException::new);
+        redisClient.hdel(RedisKeyConstants.CAPTCHA_ANSWER_KEY, uid);
+        if (!answer.equals(code)) throw new AkirUserCaptchaException();
     }
 }

@@ -5,6 +5,7 @@ import org.pomeluce.akir.common.annotation.RestApiController;
 import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
+import org.pomeluce.akir.core.web.service.AkirTokenService;
 import org.pomeluce.akir.server.system.domain.entity.User;
 import org.pomeluce.akir.server.system.services.SystemUserService;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import org.pomeluce.akir.common.config.AkirProperty;
 import org.pomeluce.akir.core.security.filter.JwtAuthTokenFilter;
 import org.pomeluce.akir.core.security.handler.AuthEntryPointHandler;
+import org.pomeluce.akir.core.security.handler.LogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 public class SecurityConfiguration {
     private @Resource AuthenticationConfiguration authenticationConfiguration;
     private @Resource AuthEntryPointHandler entryPointHandler;
+    private @Resource LogoutSuccessHandler logoutSuccessHandler;
     private @Resource JwtAuthTokenFilter authTokenFilter;
     private @Resource AkirProperty property;
     private String[] matchers = {"/**"};
@@ -106,6 +108,10 @@ public class SecurityConfiguration {
                         .anyRequest()
                         .authenticated()
                 )
+                .logout(config -> {
+                    config.logoutUrl(property.getSecurity().getLogoutEndpoint());
+                    config.logoutSuccessHandler(logoutSuccessHandler);
+                })
                 // 认证过滤器
                 .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 // 匿名访问和未授权访问处理器

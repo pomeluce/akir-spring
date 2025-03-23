@@ -24,6 +24,8 @@ public enum HttpEntityCode {
     LOGIN_USER_PASSWORD_RETRY_LIMIT_EXCEED("E2003", "login.user.password.retry.limit.exceed"),
     LOGIN_USER_DELETED("E2004", "login.user.deleted"),
     LOGIN_USER_DISABLED("E2005", "login.user.disabled"),
+    LOGIN_USER_CAPTCHA_FAILED("E2006", "login.user.captcha.failed"),
+    LOGIN_USER_CAPTCHA_EXPIRED("E2007", "login.user.captcha.expired"),
 
     GENERAL_BUSINESS_ERROR("E3000");
 

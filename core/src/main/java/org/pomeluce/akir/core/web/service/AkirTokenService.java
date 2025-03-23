@@ -2,6 +2,7 @@ package org.pomeluce.akir.core.web.service;
 
 import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
@@ -166,6 +167,15 @@ public class AkirTokenService {
     }
 
     /**
+     * 根据 username 删除登录信息
+     *
+     * @param username 登录名 {@link String}
+     */
+    public void delLoginUser(String username) {
+        Optional.ofNullable(username).ifPresent(u -> redisClient.hdel(RedisKeyConstants.TOKEN_ACCESS_KEY, u));
+    }
+
+    /**
      * 根据 token 获取用户认证信息
      *
      * @param token token 信息 {@link String}
@@ -194,7 +204,7 @@ public class AkirTokenService {
      * @param token token 信息 {@link String}
      * @return 返回一个 {@link Claims} 类型的令牌载荷信息
      */
-    public Claims getClaims(String token) {
+    public Claims getClaims(String token) throws ExpiredJwtException {
         return Jwts.parser().verifyWith(getPublicKey()).build().parseSignedClaims(token).getPayload();
     }
 
@@ -204,7 +214,7 @@ public class AkirTokenService {
      * @param token token 信息 {@link String}
      * @return 返回一个 {@link Boolean} 类型的判断结果
      */
-    public boolean checkToken(String token) {
+    public boolean checkToken(String token) throws ExpiredJwtException {
         try {
             Jwts.parser().verifyWith(getPublicKey()).build().parseSignedClaims(token);
         } catch (IllegalArgumentException e) {

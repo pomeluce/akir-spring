@@ -14,6 +14,6 @@ public record LoginBody(
         @Schema(description = "请求唯一标识") String uid,
         @Schema(description = "账号") String account,
         @Schema(description = "密码") String password,
-        @Schema(description = "验证码") String code
+        @Schema(description = "验证码") String captcha
 ) {
 }

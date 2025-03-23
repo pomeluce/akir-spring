@@ -43,6 +43,7 @@ public class AkirProperty {
     public static class Security {
         private boolean enabled = false;
         private List<String> matchers;
+        private String logoutEndpoint = "/api/auth/logout";
     }
 
     @Getter

@@ -34,6 +34,13 @@ public class SecurityUtils {
     }
 
     /**
+     * 删除上下文登录信息
+     */
+    public static void clearContext() {
+        SecurityContextHolder.clearContext();
+    }
+
+    /**
      * 校验密码
      *
      * @param rowPassword     原始密码 {@link String}
