@@ -1,13 +1,20 @@
 package org.pomeluce.akir.core.web.service;
 
+import com.pig4cloud.captcha.ArithmeticCaptcha;
+import com.pig4cloud.captcha.ChineseCaptcha;
+import com.pig4cloud.captcha.SpecCaptcha;
 import jakarta.annotation.Resource;
+import org.pomeluce.akir.common.constants.ExpiredTimeConstants;
 import org.pomeluce.akir.common.constants.RedisKeyConstants;
 import org.pomeluce.akir.common.core.redis.RedisClient;
 import org.pomeluce.akir.common.exception.AkirServiceException;
 import org.pomeluce.akir.common.exception.user.AkirUserCaptchaException;
 import org.pomeluce.akir.common.exception.user.AkirUserCaptchaExpiredException;
 import org.pomeluce.akir.common.exception.user.AkirUserPasswordNotMatchException;
+import org.pomeluce.akir.common.utils.id.IdGenerator;
 import org.pomeluce.akir.core.security.context.AuthenticationContextHolder;
+import org.pomeluce.akir.server.system.domain.enums.CaptchaType;
+import org.pomeluce.akir.server.system.domain.model.Captcha;
 import org.pomeluce.akir.server.system.domain.model.LoginUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,6 +23,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author : marcus
@@ -35,7 +43,7 @@ public class AkirLoginService {
      *
      * @param account  用户名 {@link String}
      * @param password 密码 {@link String}
-     * @return 返回 String 类型的 token 信息
+     * @return 返回 {@link String} 类型的 token 信息
      */
     public String login(String account, String password) {
         Authentication authenticate;
@@ -66,8 +74,43 @@ public class AkirLoginService {
      * @param code 验证码 {@link String}
      */
     public void verifyCaptcha(String uid, String code) {
-        String answer = Optional.ofNullable((String) redisClient.hget(RedisKeyConstants.CAPTCHA_ANSWER_KEY, uid)).orElseThrow(AkirUserCaptchaExpiredException::new);
-        redisClient.hdel(RedisKeyConstants.CAPTCHA_ANSWER_KEY, uid);
+        String answer = Optional.ofNullable((String) redisClient.get(RedisKeyConstants.CAPTCHA_ANSWER_KEY + uid)).orElseThrow(AkirUserCaptchaExpiredException::new);
+        redisClient.delete(RedisKeyConstants.CAPTCHA_ANSWER_KEY + uid);
         if (!answer.equals(code)) throw new AkirUserCaptchaException();
+    }
+
+    /**
+     * 生成验证码
+     *
+     * @param type 验证码类型 {@link CaptchaType}
+     * @return 返回一个 {@link Captcha} 类型的验证码对象
+     */
+    public Captcha generateCaptcha(CaptchaType type) {
+        String uid = IdGenerator.randomUUID(true);
+        return switch (type) {
+            case DEFAULT -> {
+                SpecCaptcha cap = new SpecCaptcha();
+                cap.setLen(6);
+                String answer = cap.text();
+                redisClient.set(RedisKeyConstants.CAPTCHA_ANSWER_KEY + uid, answer, ExpiredTimeConstants.CAPTCHA, TimeUnit.MILLISECONDS);
+                yield new Captcha(uid, cap.toBase64());
+            }
+            case MATH -> {
+                // 生成算术验证码
+                ArithmeticCaptcha cap = new ArithmeticCaptcha();
+                cap.supportAlgorithmSign(4);
+                cap.setDifficulty(100);
+                String answer = cap.text();
+                redisClient.set(RedisKeyConstants.CAPTCHA_ANSWER_KEY + uid, answer, ExpiredTimeConstants.CAPTCHA, TimeUnit.MILLISECONDS);
+                yield new Captcha(uid, cap.toBase64());
+            }
+            case CHINESE -> {
+                ChineseCaptcha cap = new ChineseCaptcha();
+                cap.setLen(5);
+                String answer = cap.text();
+                redisClient.set(RedisKeyConstants.CAPTCHA_ANSWER_KEY + uid, answer, ExpiredTimeConstants.CAPTCHA, TimeUnit.MILLISECONDS);
+                yield new Captcha(uid, cap.toBase64());
+            }
+        };
     }
 }

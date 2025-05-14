@@ -13,5 +13,5 @@ public class RedisKeyConstants {
 
     public static final String PASSWORD_RETRIES_KEY = "user:password_retries";
 
-    public static final String CAPTCHA_ANSWER_KEY = "captcha:answer";
+    public static final String CAPTCHA_ANSWER_KEY = "captcha:answer:";
 }

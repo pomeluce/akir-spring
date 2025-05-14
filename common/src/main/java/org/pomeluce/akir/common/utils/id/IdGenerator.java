@@ -25,12 +25,12 @@ public class IdGenerator {
     /**
      * 随机生成 uuid
      *
-     * @param isSimple 是否简化 {@link String}
+     * @param simplify 是否去除横线 {@link String}
      * @return 返回一个 string 类型的 uuid
      */
-    public static String randomUUID(boolean isSimple) {
+    public static String randomUUID(boolean simplify) {
         String uuid = UUID.randomUUID().toString();
-        return isSimple ? uuid.replaceAll("-", "") : uuid;
+        return simplify ? uuid.replaceAll("-", "") : uuid;
     }
 
 
