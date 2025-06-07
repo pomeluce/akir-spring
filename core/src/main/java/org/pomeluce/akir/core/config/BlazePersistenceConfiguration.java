@@ -1,9 +1,9 @@
 package org.pomeluce.akir.core.config;
 
 import com.blazebit.persistence.Criteria;
-import com.blazebit.persistence.querydsl.BlazeJPAQueryFactory;
-import jakarta.persistence.EntityManager;
+import com.blazebit.persistence.CriteriaBuilderFactory;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,8 +16,9 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 public class BlazePersistenceConfiguration {
+    private @PersistenceUnit EntityManagerFactory entityManagerFactory;
 
-    public @Bean BlazeJPAQueryFactory createBlazeJPAQuery(EntityManager entityManager, EntityManagerFactory entityManagerFactory) {
-        return new BlazeJPAQueryFactory(entityManager, Criteria.getDefault().createCriteriaBuilderFactory(entityManagerFactory));
+    public @Bean CriteriaBuilderFactory criteriaBuilderFactory() {
+        return Criteria.getDefault().createCriteriaBuilderFactory(entityManagerFactory);
     }
 }

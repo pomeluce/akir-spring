@@ -1,8 +1,5 @@
 package org.pomeluce.akir.common.core.page;
 
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.StringPath;
 import lombok.*;
 import org.pomeluce.akir.common.utils.StringUtils;
 import org.springframework.data.domain.Sort;
@@ -19,35 +16,20 @@ import java.util.Optional;
  * @description : 分页对象
  */
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class Pageable implements Serializable {
     private static final @Serial long serialVersionUID = 1L;
     /* 当前页 */
-    private Integer pageNumber;
-    /* 叶容量 */
-    private Integer pageSize;
+    private Integer pageNumber = 1;
+    /* 页容量 */
+    private Integer pageSize = 10;
     /* 排序方式 */
-    private Sort.Direction sort;
+    private Sort.Direction sort = Sort.Direction.ASC;
     /* 排序列 */
     private String orderByColumn;
-    @Getter(value = AccessLevel.NONE)
-    @Setter(value = AccessLevel.NONE)
-    private OrderSpecifier<? extends Comparable<?>> orderSpecifier;
-
-    public Pageable() {
-        this.sort = Sort.Direction.ASC;
-    }
-
-    public @SuppressWarnings("unchecked") <T extends Comparable<T>> Optional<OrderSpecifier<T>> getDefaultOrder() {
-        return Optional.ofNullable((OrderSpecifier<T>) this.orderSpecifier);
-    }
-
-    public <T extends Comparable<T>> Pageable setDefaultOrder(OrderSpecifier<T> orderSpecifier) {
-        this.orderSpecifier = orderSpecifier;
-        return this;
-    }
 
     public int offset() {
         return (this.pageNumber - 1) * pageSize;
@@ -58,18 +40,10 @@ public class Pageable implements Serializable {
     }
 
     public Optional<Sort> getJpaOrderBy() {
-        if (StringUtils.isEmpty(this.orderByColumn)) return Optional.empty();
+        if (StringUtils.isEmpty(this.orderByColumn)) return Optional.of(Sort.unsorted());
         Sort sort = Sort.by(this.orderByColumn);
         if (this.sort.isAscending()) sort.ascending();
         else sort.descending();
         return Optional.of(sort);
     }
-
-    public Optional<OrderSpecifier<String>> getDslOrderBy() {
-        if (StringUtils.isEmpty(this.orderByColumn)) return Optional.empty();
-        StringPath path = Expressions.stringPath(this.orderByColumn);
-        OrderSpecifier<String> orderSpecifier = this.sort.isAscending() ? path.asc() : path.desc();
-        return Optional.of(orderSpecifier);
-    }
-
 }

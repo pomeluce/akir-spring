@@ -1,12 +1,11 @@
 package org.pomeluce.akir.server.system.repository.impl;
 
-import com.blazebit.persistence.querydsl.BlazeJPAQuery;
-import com.blazebit.persistence.querydsl.BlazeJPAQueryFactory;
+import com.blazebit.persistence.CriteriaBuilder;
+import com.blazebit.persistence.CriteriaBuilderFactory;
 import jakarta.persistence.EntityManager;
+import org.pomeluce.akir.common.core.repository.BPWhereBuilder;
 import org.pomeluce.akir.common.core.repository.BaseRepositoryImpl;
-import org.pomeluce.akir.common.core.repository.SelectBooleanBuilder;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
-import org.pomeluce.akir.server.system.domain.entity.QMenu;
 import org.pomeluce.akir.server.system.repository.SystemMenuRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +23,7 @@ import java.util.Optional;
 @Repository
 @Transactional
 public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> implements SystemMenuRepository {
-    final QMenu menu = QMenu.menu;
-
-    public SystemMenuRepositoryImpl(EntityManager entityManager, BlazeJPAQueryFactory factory) {
+    public SystemMenuRepositoryImpl(EntityManager entityManager, CriteriaBuilderFactory factory) {
         super(Menu.class, entityManager, factory);
     }
 
@@ -38,14 +35,13 @@ public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> imp
      */
     @Override
     public @Transactional(readOnly = true) Optional<List<Menu>> find(Menu menu) {
-        BlazeJPAQuery<Menu> query = factory.selectFrom(this.menu).where(SelectBooleanBuilder.builder()
-                .notEmptyEq(menu.getCode(), this.menu.code)
-                .notEmptyLike(menu.getLabel(), this.menu.label)
-                .notEmptyEq(menu.getShow(), this.menu.show)
-                .notEmptyEq(menu.getDisabled(), this.menu.disabled)
-                .notEmptyLike(menu.getTarget(), this.menu.target)
-                .build()
-        );
-        return Optional.of(query.fetch());
+        CriteriaBuilder<Menu> cb = BPWhereBuilder.builder(factory.create(em, Menu.class, "menu"), "menu")
+                .notEmptyEq(menu.getCode(), "code")
+                .notEmptyLike(menu.getLabel(), "label")
+                .notEmptyEq(menu.getShow(), "show")
+                .notEmptyEq(menu.getDisabled(), "disabled")
+                .notEmptyLike(menu.getTarget(), "target")
+                .build();
+        return Optional.ofNullable(cb.getResultList());
     }
 }

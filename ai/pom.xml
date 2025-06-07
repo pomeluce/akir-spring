@@ -23,8 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>spring-ai-starter-model-ollama</artifactId>
         </dependency>
     </dependencies>
 </project>

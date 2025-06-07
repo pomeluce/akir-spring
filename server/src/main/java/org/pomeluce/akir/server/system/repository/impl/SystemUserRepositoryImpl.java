@@ -1,18 +1,17 @@
 package org.pomeluce.akir.server.system.repository.impl;
 
-import com.blazebit.persistence.querydsl.BlazeJPAQuery;
-import com.blazebit.persistence.querydsl.BlazeJPAQueryFactory;
+import com.blazebit.persistence.CriteriaBuilder;
+import com.blazebit.persistence.CriteriaBuilderFactory;
+import com.blazebit.persistence.PagedList;
 import jakarta.persistence.EntityManager;
 import org.pomeluce.akir.common.core.page.Pageable;
+import org.pomeluce.akir.common.core.repository.BPWhereBuilder;
 import org.pomeluce.akir.common.core.repository.BaseRepositoryImpl;
-import org.pomeluce.akir.common.core.repository.SelectBooleanBuilder;
-import org.pomeluce.akir.server.system.domain.entity.QUser;
 import org.pomeluce.akir.server.system.domain.entity.User;
 import org.pomeluce.akir.server.system.repository.SystemUserRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,9 +25,7 @@ import java.util.Optional;
 @Transactional
 public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> implements SystemUserRepository {
 
-    final QUser user = QUser.user;
-
-    public SystemUserRepositoryImpl(EntityManager entityManager, BlazeJPAQueryFactory factory) {
+    public SystemUserRepositoryImpl(EntityManager entityManager, CriteriaBuilderFactory factory) {
         super(User.class, entityManager, factory);
     }
 
@@ -40,17 +37,17 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
      * @return 返回符合条件的用户信息集合
      */
     @Override
-    public @Transactional(readOnly = true) Optional<List<User>> find(User user, Pageable pageable) {
-        BlazeJPAQuery<User> query = factory.selectFrom(this.user).where(SelectBooleanBuilder.builder()
-                .notEmptyEq(user.getId(), this.user.id)
-                .notEmptyLike(user.getAccount(), this.user.account)
-                .notEmptyLike(user.getEmail(), this.user.email)
-                .notEmptyEq(user.getStatus(), this.user.status)
-                .notEmptyLike(user.getCreateBy(), this.user.createBy)
-                .notEmptyLike(user.getUpdateBy(), this.user.updateBy)
-                .build()
-        ).orderBy(this.user.id.asc());
-        return Optional.of(this.fetchPage(query, pageable).orElseGet(query::fetch));
+    public @Transactional(readOnly = true) Optional<PagedList<User>> find(User user, Pageable pageable) {
+        CriteriaBuilder<User> cb = BPWhereBuilder.builder(factory.create(em, User.class, "user"), "user")
+                .notEmptyEq(user.getId(), "id")
+                .notEmptyLike(user.getAccount(), "account")
+                .notEmptyLike(user.getEmail(), "email")
+                .notEmptyEq(user.getStatus(), "status")
+                .notEmptyLike(user.getCreateBy(), "createBy")
+                .notEmptyLike(user.getUpdateBy(), "updateBy")
+                .build();
+        cb.orderByAsc("user.id");
+        return Optional.ofNullable(this.fetchPage(cb, pageable, "user"));
     }
 
     /**
@@ -61,6 +58,6 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
      */
     @Override
     public @Transactional(readOnly = true) Optional<User> findByAccount(String account) {
-        return Optional.ofNullable(factory.selectFrom(this.user).where(this.user.account.eq(account)).fetchOne());
+        return Optional.ofNullable(factory.create(em, User.class, "user").where("user.account").eq(account).getSingleResult());
     }
 }

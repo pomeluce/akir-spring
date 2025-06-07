@@ -1,12 +1,11 @@
 package org.pomeluce.akir.common.core.repository;
 
-import com.blazebit.persistence.querydsl.BlazeJPAQuery;
+import com.blazebit.persistence.CriteriaBuilder;
+import com.blazebit.persistence.PagedList;
+import org.pomeluce.akir.common.core.page.PageInfo;
 import org.pomeluce.akir.common.core.page.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author : marcus
@@ -22,5 +21,5 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
 
     void entityDetach(T entity);
 
-    <K> Optional<List<K>> fetchPage(BlazeJPAQuery<K> query, Pageable pageable);
+    <K> PagedList<K> fetchPage(CriteriaBuilder<K> builder, Pageable pageable, String alias);
 }

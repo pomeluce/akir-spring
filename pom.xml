@@ -26,12 +26,12 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <java.version>21</java.version>
-        <spring-boot.version>3.4.4</spring-boot.version>
-        <spring-ai.version>1.0.0-SNAPSHOT</spring-ai.version>
-        <querydsl.version>5.1.0</querydsl.version>
+        <spring-boot.version>3.5.0</spring-boot.version>
+        <spring-ai.version>1.0.0</spring-ai.version>
         <blaze-persistence.version>1.6.15</blaze-persistence.version>
         <hypersistence.version>3.9.9</hypersistence.version>
         <druid.version>1.2.24</druid.version>
+        <httpclient-version>5.5</httpclient-version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <knife4j.version>4.5.0</knife4j.version>
         <jackson.version>2.18.3</jackson.version>
@@ -59,19 +59,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- querydsl, blase-persistence 分页 -->
-            <dependency>
-                <groupId>com.querydsl</groupId>
-                <artifactId>querydsl-jpa</artifactId>
-                <version>${querydsl.version}</version>
-                <classifier>jakarta</classifier>
-            </dependency>
-            <dependency>
-                <groupId>com.blazebit</groupId>
-                <artifactId>blaze-persistence-integration-querydsl-expressions-jakarta</artifactId>
-                <version>${blaze-persistence.version}</version>
-                <scope>compile</scope>
-            </dependency>
+            <!-- blase-persistence 集合 jpa -->
             <dependency>
                 <groupId>com.blazebit</groupId>
                 <artifactId>blaze-persistence-core-api-jakarta</artifactId>
@@ -90,6 +78,11 @@
                 <version>${blaze-persistence.version}</version>
                 <scope>runtime</scope>
             </dependency>
+            <dependency>
+                <groupId>com.blazebit</groupId>
+                <artifactId>blaze-persistence-integration-spring-data-3.3</artifactId>
+                <version>${blaze-persistence.version}</version>
+            </dependency>
 
             <!-- hibernate 特殊类型映射 -->
             <dependency>
@@ -102,6 +95,17 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${httpclient-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5-fluent</artifactId>
+                <version>${httpclient-version}</version>
             </dependency>
 
             <dependency>
@@ -153,7 +157,7 @@
                 <artifactId>jjwt-jackson</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
-           <!-- 图形验证码 -->
+            <!-- 图形验证码 -->
             <dependency>
                 <groupId>com.pig4cloud.plugin</groupId>
                 <artifactId>captcha-spring-boot-starter</artifactId>
@@ -213,25 +217,6 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>https://repo.spring.io/snapshot</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -244,38 +229,5 @@
                 </configuration>
             </plugin>
         </plugins>
-        <!-- querydsl Q 类生成 -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.13.0</version>
-                    <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <generatedSourcesDirectory>${project.build.directory}/generated-sources/java</generatedSourcesDirectory>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>${lombok.version}</version>
-                            </path>
-                            <path>
-                                <groupId>com.querydsl</groupId>
-                                <artifactId>querydsl-apt</artifactId>
-                                <version>${querydsl.version}</version>
-                                <classifier>jakarta</classifier>
-                            </path>
-                            <path>
-                                <groupId>jakarta.persistence</groupId>
-                                <artifactId>jakarta.persistence-api</artifactId>
-                                <version>3.2.0</version>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>

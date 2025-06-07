@@ -1,15 +1,17 @@
 package org.pomeluce.akir;
 
+import org.apache.hc.core5.http.HttpVersion;
 import org.junit.jupiter.api.Test;
 import org.pomeluce.akir.common.config.AkirEnvironment;
-import org.pomeluce.akir.common.core.http.HttpRequest;
+import org.pomeluce.akir.common.core.http.HttpClient;
+import org.pomeluce.akir.common.core.http.HttpMethod;
 import org.pomeluce.akir.common.core.http.HttpResult;
 import org.pomeluce.akir.common.utils.StringUtils;
 import org.pomeluce.akir.common.utils.location.IpAddrUtils;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -27,16 +29,23 @@ public class CommonTest {
     }
 
     public @Test void httpTest() {
-        // Map<String, String> result = HttpUtils.GET("http://whois.pconline.com.cn/ipJson.jsp", "json=true");
-        HttpRequest instance = HttpRequest.instance(
-                "http://jsonplaceholder.typicode.com",
-                5000L,
-                new HashMap<>() {
-                    {
-                        put("Content-Type", "application/json");
-                    }
-                }
+        HttpClient http = HttpClient.instance(cfg -> cfg.baseUrl("http://jsonplaceholder.typicode.com").httpVersion(HttpVersion.HTTP_2_0));
+        HttpResult ipInfo = HttpClient.instance(cfg -> cfg.httpVersion(HttpVersion.HTTP_2_0)).request(rb -> rb
+                .method(HttpMethod.GET, "http://whois.pconline.com.cn/ipJson.jsp")
+                .params(Map.of(
+                        "json", "true",
+                        "ip", "127.0.0.1"
+                ))
         );
+        System.out.println(ipInfo);
+        // HttpRequest instance = HttpRequest.instance(
+        //         5000L,
+        //         new HashMap<>() {
+        //             {
+        //                 put("Content-Type", "application/json");
+        //             }
+        //         }
+        // );
         /*
             HttpResult result = instance.POST("/posts", new HashMap<>() {
                 {
@@ -56,7 +65,7 @@ public class CommonTest {
         //     }
         // });
         // System.out.println(put);
-        HttpResult result = CompletableFuture.supplyAsync(() -> instance.GET("/posts/1")).join();
+        HttpResult result = CompletableFuture.supplyAsync(() -> http.request(rb -> rb.method(HttpMethod.GET, "/posts/1"))).join();
         // HttpResult result = instance.GET("/posts/1");
         System.out.println("------------->");
         String code = result.statusCode() + result.message();

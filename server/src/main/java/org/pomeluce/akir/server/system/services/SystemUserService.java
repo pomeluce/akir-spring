@@ -1,10 +1,9 @@
 package org.pomeluce.akir.server.system.services;
 
 
+import org.pomeluce.akir.common.core.page.PageInfo;
 import org.pomeluce.akir.common.core.page.Pageable;
 import org.pomeluce.akir.server.system.domain.entity.User;
-
-import java.util.List;
 
 /**
  * @author : marcus
@@ -21,10 +20,11 @@ public interface SystemUserService {
      * @param pageable 分页信息
      * @return 返回符合条件的用户信息列表
      */
-    List<User> find(User user, Pageable pageable);
+    PageInfo<User> find(User user, Pageable pageable);
 
     /**
      * 根据账号查询用户信息
+     *
      * @param account 用户名
      * @return 用户信息
      */

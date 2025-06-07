@@ -1,7 +1,8 @@
 package org.pomeluce.akir.common.utils.location;
 
 import org.pomeluce.akir.common.config.AkirProperty;
-import org.pomeluce.akir.common.core.http.HttpRequest;
+import org.pomeluce.akir.common.core.http.HttpClient;
+import org.pomeluce.akir.common.core.http.HttpMethod;
 import org.pomeluce.akir.common.core.http.HttpResult;
 import org.pomeluce.akir.common.utils.JacksonUtils;
 import org.pomeluce.akir.common.utils.StringUtils;
@@ -31,14 +32,18 @@ public class LocationUtils {
      */
     public static String getRelativeLocation(String ip) {
         // 是否为内网地址
-        if (IpAddrUtils.isInternalIP(ip)) {
-            return "内网 IP";
-        }
+        if (IpAddrUtils.isInternalIP(ip)) return "内网 IP";
 
         HttpResult result;
 
         // 是否为开启了定位功能, 并且获取定位信息成功
-        if (AKIR_CONFIG.isEnableLocation() && (result = HttpRequest.instance().GET(IP + "?ip=" + ip + "&json=true")).statusCode() == HttpStatus.OK.value()) {
+        if (AKIR_CONFIG.isEnableLocation() && (result = HttpClient.instance().request(rb -> rb
+                .method(HttpMethod.GET, IP)
+                .params(Map.of(
+                        "ip", ip,
+                        "json", String.valueOf(true)
+                ))
+        )).statusCode() == HttpStatus.OK.value()) {
             @SuppressWarnings("unchecked") Map<String, String> map = JacksonUtils.parseValue(result.body(), Map.class);
             return StringUtils.format("省份: {} 城市: {}", map.get("pro"), map.get("city"));
         }

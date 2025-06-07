@@ -1,5 +1,6 @@
 package org.pomeluce.akir.common.core.page;
 
+import com.blazebit.persistence.PagedList;
 import org.pomeluce.akir.common.utils.spring.ServletClient;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,8 +29,7 @@ public class PaginationSupport {
 
     public static PageRequest pageRequest() {
         Pageable pageable = pageable();
-        return pageable.getJpaOrderBy().map(order -> PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), order))
-                .orElse(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
+        return pageable.getJpaOrderBy().map(order -> PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), order)).orElse(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
     }
 
     static Sort.Direction direction(String value) {
@@ -39,4 +39,9 @@ public class PaginationSupport {
             return Sort.Direction.ASC;
         }
     }
+
+    public static @SuppressWarnings("unchecked") <T> PageInfo<T> emptyPageInfo() {
+        return PageInfo.builder((PagedList<T>) PagedList.EMPTY).pageSize(ServletClient.getIntegerParameter(PAGE_SIZE, 10)).build();
+    }
+
 }

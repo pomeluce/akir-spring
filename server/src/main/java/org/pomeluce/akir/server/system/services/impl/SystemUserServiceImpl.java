@@ -1,13 +1,16 @@
 package org.pomeluce.akir.server.system.services.impl;
 
+import com.blazebit.persistence.PagedList;
 import jakarta.annotation.Resource;
+import org.pomeluce.akir.common.core.page.PageInfo;
 import org.pomeluce.akir.common.core.page.Pageable;
+import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.server.system.domain.entity.User;
 import org.pomeluce.akir.server.system.repository.SystemUserRepository;
 import org.pomeluce.akir.server.system.services.SystemUserService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author : marcus
@@ -29,17 +32,19 @@ public class SystemUserServiceImpl implements SystemUserService {
      * @return 返回符合条件的用户信息列表
      */
     @Override
-    public List<User> find(User user, Pageable pageable) {
-        return repository.find(user, pageable).orElse(List.of());
+    public PageInfo<User> find(User user, Pageable pageable) {
+        Optional<PagedList<User>> users = repository.find(user, pageable);
+        return users.isPresent() ? PageInfo.builder(users.get()).pageSize(pageable.getPageSize()).build() : PaginationSupport.emptyPageInfo();
     }
 
     /**
      * 根据账号查询用户信息
+     *
      * @param account 用户名
      * @return 用户信息
      */
     public User findByAccount(String account) {
-        return  repository.findByAccount(account).orElse(null);
+        return repository.findByAccount(account).orElse(null);
     }
 
     /**

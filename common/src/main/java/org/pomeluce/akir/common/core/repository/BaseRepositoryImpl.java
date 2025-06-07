@@ -1,14 +1,14 @@
 package org.pomeluce.akir.common.core.repository;
 
-import com.blazebit.persistence.querydsl.BlazeJPAQuery;
-import com.blazebit.persistence.querydsl.BlazeJPAQueryFactory;
+import com.blazebit.persistence.CriteriaBuilder;
+import com.blazebit.persistence.CriteriaBuilderFactory;
+import com.blazebit.persistence.PagedList;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.pomeluce.akir.common.core.page.Pageable;
+import org.pomeluce.akir.common.utils.StringUtils;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author : marcus
@@ -18,39 +18,38 @@ import java.util.Optional;
  * @description : 通用持久层抽象实现
  */
 public abstract class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
-    private final EntityManager entityManager;
-    protected final BlazeJPAQueryFactory factory;
+    protected @PersistenceContext EntityManager em;
+    protected final CriteriaBuilderFactory factory;
 
-    public BaseRepositoryImpl(Class<T> domainClass, EntityManager entityManager, BlazeJPAQueryFactory factory) {
-        super(domainClass, entityManager);
-        this.entityManager = entityManager;
+    public BaseRepositoryImpl(Class<T> domainClass, EntityManager em, CriteriaBuilderFactory factory) {
+        super(domainClass, em);
+        this.em = em;
         this.factory = factory;
     }
 
     @Override
     public void entityClear() {
-        entityManager.clear();
+        em.clear();
     }
 
     @Override
     public void entityDetach(T entity) {
-        entityManager.detach(entity);
+        em.detach(entity);
     }
 
     @Override
-    public <K> Optional<List<K>> fetchPage(BlazeJPAQuery<K> query, Pageable pageable) {
-        return Optional.ofNullable(pageable).map(page -> {
-            page.getDslOrderBy().map(query::orderBy);
-            page.getDefaultOrder().map(query::orderBy);
-            return query.fetchPage(page.offset(), page.getPageSize());
-        });
+    public <K> PagedList<K> fetchPage(CriteriaBuilder<K> builder, Pageable pageable, String alias) {
+        String orderColumn = pageable.getOrderByColumn();
+        if (StringUtils.isNoneBlank(orderColumn)) builder.orderBy(alias + "." + orderColumn.trim(), pageable.getSort().isAscending());
+        builder.setFirstResult(pageable.offset()).setMaxResults(pageable.getPageSize());
+        return builder.page(pageable.offset(), pageable.getPageSize().intValue()).getResultList();
     }
 
     public Query nativeQuery(String sql) {
-        return entityManager.createNativeQuery(sql);
+        return em.createNativeQuery(sql);
     }
 
     public <K> Query nativeQuery(String sql, Class<K> cls) {
-        return entityManager.createNativeQuery(sql, cls);
+        return em.createNativeQuery(sql, cls);
     }
 }

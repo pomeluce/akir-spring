@@ -1,16 +1,15 @@
 package org.pomeluce.akir;
 
+import com.blazebit.persistence.PagedList;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
 import org.pomeluce.akir.common.utils.spring.SecurityUtils;
-import org.pomeluce.akir.server.system.domain.entity.QUser;
 import org.pomeluce.akir.server.system.domain.entity.User;
 import org.pomeluce.akir.server.system.domain.enums.UserStatus;
 import org.pomeluce.akir.server.system.repository.SystemUserRepository;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,7 +47,7 @@ public class UserTest {
 
     @Test
     void findUserList() {
-        Optional<List<User>> result = repository.find(User.builder().email("@qq.com").build(), PaginationSupport.pageable().setDefaultOrder(QUser.user.id.desc()));
+        Optional<PagedList<User>> result = repository.find(User.builder().email("@gmail.com").build(), PaginationSupport.pageable());
         result.ifPresent(System.out::println);
     }
 }

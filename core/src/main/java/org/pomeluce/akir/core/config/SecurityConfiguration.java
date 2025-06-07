@@ -39,8 +39,8 @@ public class SecurityConfiguration {
     private String[] matchers = {"/**"};
 
     private @PostConstruct void init() {
-        Boolean enabled = property.getSecurity().isEnabled();
-        matchers = Boolean.TRUE.equals(enabled) ? property.getSecurity().getMatchers().toArray(String[]::new) : matchers;
+        boolean enabled = property.getSecurity().isEnabled();
+        matchers = enabled ? property.getSecurity().getMatchers().toArray(String[]::new) : matchers;
     }
 
     /**

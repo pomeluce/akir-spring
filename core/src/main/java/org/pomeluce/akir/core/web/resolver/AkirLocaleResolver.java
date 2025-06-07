@@ -2,6 +2,7 @@ package org.pomeluce.akir.core.web.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
 import org.pomeluce.akir.common.config.AkirEnvironment;
 import org.pomeluce.akir.common.utils.StringUtils;
 import org.pomeluce.akir.common.utils.location.LocationUtils;
@@ -23,7 +24,7 @@ import java.util.Locale;
  */
 public class AkirLocaleResolver extends AbstractLocaleResolver {
     private final String localeHeader = AkirEnvironment.instance.get("spring.messages.locale-header", String.class, "Accept-Language");
-    private final List<Locale> supportedLocales = new ArrayList<>(4);
+    private final @Getter List<Locale> supportedLocales = new ArrayList<>(4);
 
     /**
      * 设置支持的国际化对象列表
@@ -33,15 +34,6 @@ public class AkirLocaleResolver extends AbstractLocaleResolver {
     public void setSupportedLocales(List<Locale> locales) {
         this.supportedLocales.clear();
         this.supportedLocales.addAll(locales);
-    }
-
-    /**
-     * 获取支持的国际化对象列表
-     *
-     * @return 返回一个 List 类型的国际化对象
-     */
-    public List<Locale> getSupportedLocales() {
-        return this.supportedLocales;
     }
 
     /**
