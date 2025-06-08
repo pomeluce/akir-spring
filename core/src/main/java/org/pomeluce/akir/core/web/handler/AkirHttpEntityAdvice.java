@@ -36,7 +36,7 @@ public class AkirHttpEntityAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, @Nullable MethodParameter returnType, @Nullable MediaType selectedContentType, @Nullable Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nullable ServerHttpRequest request, @Nullable ServerHttpResponse response) {
         if (body instanceof HttpEntity<?>) return body;
         HttpEntity<Object> result = HttpEntity.instance(HttpEntityCode.SUCCESS.getStatus(), SpringMessage.message(HttpEntityCode.SUCCESS.getContent()), body);
-        if (body instanceof String) return JacksonUtils.toJsonString(result);
+        if (body instanceof String) return JacksonUtils.toJson(result);
         return result;
     }
 }

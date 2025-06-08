@@ -38,7 +38,7 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
      */
     @Override
     public @Transactional(readOnly = true) Optional<PagedList<User>> find(User user, Pageable pageable) {
-        CriteriaBuilder<User> cb = BPWhereBuilder.builder(factory.create(em, User.class, "user"), "user")
+        CriteriaBuilder<User> cb = BPWhereBuilder.builder(factory.create(em, User.class, "user"))
                 .notEmptyEq(user.getId(), "id")
                 .notEmptyLike(user.getAccount(), "account")
                 .notEmptyLike(user.getEmail(), "email")
@@ -47,7 +47,7 @@ public class SystemUserRepositoryImpl extends BaseRepositoryImpl<User, Long> imp
                 .notEmptyLike(user.getUpdateBy(), "updateBy")
                 .build();
         cb.orderByAsc("user.id");
-        return Optional.ofNullable(this.fetchPage(cb, pageable, "user"));
+        return Optional.ofNullable(this.fetchPage(cb, pageable));
     }
 
     /**

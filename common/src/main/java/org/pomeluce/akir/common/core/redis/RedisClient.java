@@ -29,8 +29,7 @@ public class RedisClient {
      * 初始化 redis 配置
      */
     private @PostConstruct void init() {
-        ObjectMapper mapper = JacksonUtils.instance();
-        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        ObjectMapper mapper = JacksonUtils.getMapper(om -> om.activateDefaultTyping(om.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY));
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(mapper, Object.class);
         redisTemplate.setValueSerializer(serializer);
         redisTemplate.setHashValueSerializer(serializer);
@@ -167,7 +166,7 @@ public class RedisClient {
      * @return 返回一个 {@link Boolean} 类型的删除结果
      */
     public boolean hdel(String key, Object... fields) {
-        return Boolean.TRUE.equals(redisTemplate.opsForHash().delete(key, fields) > 0);
+        return redisTemplate.opsForHash().delete(key, fields) > 0;
     }
 
     /**
@@ -198,7 +197,7 @@ public class RedisClient {
      * @return 返回一个 {@link Boolean} 类型的删除结果
      */
     public boolean delete(String key) {
-        return Boolean.TRUE.equals(redisTemplate.delete(key));
+        return redisTemplate.delete(key);
     }
 
     /**

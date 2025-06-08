@@ -35,7 +35,7 @@ public class SystemMenuRepositoryImpl extends BaseRepositoryImpl<Menu, Long> imp
      */
     @Override
     public @Transactional(readOnly = true) Optional<List<Menu>> find(Menu menu) {
-        CriteriaBuilder<Menu> cb = BPWhereBuilder.builder(factory.create(em, Menu.class, "menu"), "menu")
+        CriteriaBuilder<Menu> cb = BPWhereBuilder.builder(factory.create(em, Menu.class, "menu"))
                 .notEmptyEq(menu.getCode(), "code")
                 .notEmptyLike(menu.getLabel(), "label")
                 .notEmptyEq(menu.getShow(), "show")

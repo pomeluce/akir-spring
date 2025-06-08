@@ -38,7 +38,8 @@ public abstract class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, I
     }
 
     @Override
-    public <K> PagedList<K> fetchPage(CriteriaBuilder<K> builder, Pageable pageable, String alias) {
+    public <K> PagedList<K> fetchPage(CriteriaBuilder<K> builder, Pageable pageable) {
+        String alias = ((BlazePersistenceAware) builder).getAlias();
         String orderColumn = pageable.getOrderByColumn();
         if (StringUtils.isNoneBlank(orderColumn)) builder.orderBy(alias + "." + orderColumn.trim(), pageable.getSort().isAscending());
         builder.setFirstResult(pageable.offset()).setMaxResults(pageable.getPageSize());

@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -108,6 +109,35 @@ public class HttpClient {
     }
 
     /**
+     * Asynchronous request using a functional RequestBuilder, executed on a virtual thread (Project Loom).
+     * This allows writing asynchronous code without blocking platform threads.
+     * <p>
+     * Example:
+     * <pre><code>
+     * client.requestAsync(rb -> rb.method("GET", "/path")).thenAccept(result -> {
+     *     System.out.println(result.statusCode());
+     * });
+     * </code></pre>
+     *
+     * @param builderFunction function that configures the RequestBuilder
+     * @return CompletableFuture resolving to HttpResult once the request completes
+     */
+    public CompletableFuture<HttpResult> requestAsync(Function<RequestBuilder, RequestBuilder> builderFunction) {
+        RequestBuilder rb = builderFunction.apply(new RequestBuilder());
+        // Launch on a virtual thread
+        CompletableFuture<HttpResult> future = new CompletableFuture<>();
+        Thread.startVirtualThread(() -> {
+            try {
+                HttpResult result = request(rb);
+                future.complete(result);
+            } catch (Throwable t) {
+                future.completeExceptionally(t);
+            }
+        });
+        return future;
+    }
+
+    /**
      * Sends a request using a pre-built {@link RequestBuilder}.
      * Catches exceptions and returns an error {@code HttpResult} if needed.
      *
@@ -138,9 +168,7 @@ public class HttpClient {
             int status = response.getCode();
             String reason = response.getReasonPhrase();
             Map<String, String> respHeaders = new HashMap<>();
-            for (Header header : response.getHeaders()) {
-                respHeaders.put(header.getName(), header.getValue());
-            }
+            for (Header header : response.getHeaders()) respHeaders.put(header.getName(), header.getValue());
 
             HttpResult.Builder builder = HttpResult
                     .builder()

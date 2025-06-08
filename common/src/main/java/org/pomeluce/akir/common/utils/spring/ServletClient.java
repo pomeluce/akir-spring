@@ -137,7 +137,7 @@ public class ServletClient {
         response.setStatus(status);
         response.setContentType("application/json;charset=UTF-8");
         PrintWriter writer = response.getWriter();
-        writer.write(JacksonUtils.toJsonString(httpEntity));
+        writer.write(JacksonUtils.toJson(httpEntity));
         writer.flush();
         writer.close();
     }

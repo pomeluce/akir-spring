@@ -6,13 +6,13 @@ import org.pomeluce.akir.common.config.AkirEnvironment;
 import org.pomeluce.akir.common.core.http.HttpClient;
 import org.pomeluce.akir.common.core.http.HttpMethod;
 import org.pomeluce.akir.common.core.http.HttpResult;
+import org.pomeluce.akir.common.utils.JacksonUtils;
 import org.pomeluce.akir.common.utils.StringUtils;
 import org.pomeluce.akir.common.utils.location.IpAddrUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * @author : marcus
@@ -23,13 +23,13 @@ import java.util.concurrent.CompletableFuture;
  */
 // @SpringBootTest
 public class CommonTest {
+    String body = "";
 
     public @Test void ipTest() {
         System.out.println(IpAddrUtils.getMultistageReverseProxyIp("192.168.1.100, 10.0.0.1, 203.0.113.5"));
     }
 
     public @Test void httpTest() {
-        HttpClient http = HttpClient.instance(cfg -> cfg.baseUrl("http://jsonplaceholder.typicode.com").httpVersion(HttpVersion.HTTP_2_0));
         HttpResult ipInfo = HttpClient.instance(cfg -> cfg.httpVersion(HttpVersion.HTTP_2_0)).request(rb -> rb
                 .method(HttpMethod.GET, "http://whois.pconline.com.cn/ipJson.jsp")
                 .params(Map.of(
@@ -37,7 +37,8 @@ public class CommonTest {
                         "ip", "127.0.0.1"
                 ))
         );
-        System.out.println(ipInfo);
+        // System.out.println(ipInfo);
+        body = ipInfo.body();
         // HttpRequest instance = HttpRequest.instance(
         //         5000L,
         //         new HashMap<>() {
@@ -65,12 +66,15 @@ public class CommonTest {
         //     }
         // });
         // System.out.println(put);
-        HttpResult result = CompletableFuture.supplyAsync(() -> http.request(rb -> rb.method(HttpMethod.GET, "/posts/1"))).join();
-        // HttpResult result = instance.GET("/posts/1");
-        System.out.println("------------->");
-        String code = result.statusCode() + result.message();
-        System.out.println(code);
-        System.out.println(result);
+        HttpClient http = HttpClient.instance(cfg -> cfg.baseUrl("http://jsonplaceholder.typicode.com").httpVersion(HttpVersion.HTTP_2_0));
+        http.requestAsync(rb -> rb.method(HttpMethod.GET, "/posts/1")).thenApply(result -> {
+            System.out.println("------------->");
+            String code = result.statusCode() + result.message();
+            System.out.println(code);
+            System.out.println(result);
+            return result;
+        });
+        System.out.println("running ....");
         // HttpResult result = instance.DELETE("/posts/1");
     }
 
@@ -90,5 +94,10 @@ public class CommonTest {
 
     public @Test void stringTest() {
         System.out.println(StringUtils.format("{{}} 测试 \\\\\\{}", "hello", "world"));
+    }
+
+    public @Test void jacksonTest() {
+        httpTest();
+        System.out.println(JacksonUtils.fromJson(body, Map.class));
     }
 }

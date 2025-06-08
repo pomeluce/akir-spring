@@ -44,7 +44,7 @@ public class LocationUtils {
                         "json", String.valueOf(true)
                 ))
         )).statusCode() == HttpStatus.OK.value()) {
-            @SuppressWarnings("unchecked") Map<String, String> map = JacksonUtils.parseValue(result.body(), Map.class);
+            @SuppressWarnings("unchecked") Map<String, String> map = JacksonUtils.fromJson(result.body(), Map.class);
             return StringUtils.format("省份: {} 城市: {}", map.get("pro"), map.get("city"));
         }
         return UNKNOWN;

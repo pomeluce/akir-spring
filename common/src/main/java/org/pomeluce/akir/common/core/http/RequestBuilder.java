@@ -115,7 +115,7 @@ public class RequestBuilder {
             case HttpMethod.OPTIONS -> Request.options(uri);
             case HttpMethod.TRACE -> Request.trace(uri);
         };
-        headers.forEach(request::addHeader);
+        headers.put("Content-type", contentType.toString());
         return request;
     }
 

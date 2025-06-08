@@ -45,15 +45,14 @@ public class BPWhereBuilder<T> {
     }
 
     /**
-     * 静态工厂：传入已创建好 from + alias 的 cb, 以及对应的 alias 字符串
+     * 静态工厂: 传入已创建好 from + alias 的 cb, 以及对应的 alias 字符串
      *
-     * @param cb    Blaze-Persistence 的 CriteriaBuilder<T>
-     * @param alias 与 cb.create(...) 时传入的一致，比如 "u"
-     * @param <T>   实体类型
+     * @param cb  Blaze-Persistence 的 CriteriaBuilder<T>
+     * @param <T> 实体类型
      * @return BPWhereBuilder<T> 实例
      */
-    public static <T> BPWhereBuilder<T> builder(CriteriaBuilder<T> cb, String alias) {
-        return new BPWhereBuilder<>(cb, alias);
+    public static <T> BPWhereBuilder<T> builder(CriteriaBuilder<T> cb) {
+        return new BPWhereBuilder<>(cb, ((BlazePersistenceAware) cb).getAlias());
     }
 
     /**
