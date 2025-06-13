@@ -1,6 +1,7 @@
 package org.pomeluce.akir.common.config;
 
-import org.pomeluce.akir.common.annotation.RestApiController;
+import jakarta.annotation.Resource;
+import org.pomeluce.akir.common.annotation.RestAPIController;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,9 +14,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @description : RestApiController 配置类
  */
 @Configuration
-public class AkirRestApiConfig implements WebMvcConfigurer {
+public class AkirRestAPIConfig implements WebMvcConfigurer {
+    private @Resource AkirProperty property;
+
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api", config -> config.isAnnotationPresent(RestApiController.class));
+        configurer.addPathPrefix(property.getConfig().getApiPrefix(), config -> config.isAnnotationPresent(RestAPIController.class));
     }
 }

@@ -1,7 +1,7 @@
 package org.pomeluce.akir.controller.system;
 
 import jakarta.annotation.Resource;
-import org.pomeluce.akir.common.annotation.RestApiController;
+import org.pomeluce.akir.common.annotation.RestAPIController;
 import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.common.core.page.PageInfo;
 import org.pomeluce.akir.common.core.page.PaginationSupport;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @className : SystemUserController
  * @description : 用户请求控制器
  */
-@RestApiController("/user")
+@RestAPIController("/user")
 public class SystemUserController extends BaseController {
 
     private @Resource SystemUserService service;

@@ -3,7 +3,8 @@ package org.pomeluce.akir.controller.system;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.pomeluce.akir.common.annotation.RestApiController;
+import org.pomeluce.akir.common.annotation.RestAPIController;
+import org.pomeluce.akir.common.annotation.SuccessMessage;
 import org.pomeluce.akir.common.constants.JwtKeyConstants;
 import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.core.web.service.AkirLoginService;
@@ -22,12 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @className : LoginController
  * @description : 登录控制器
  */
-@RestApiController("/auth")
+@RestAPIController("/auth")
 @Tag(name = "登录控制器")
 public class SystemLoginController extends BaseController {
     private @Resource AkirLoginService service;
 
     @Operation(summary = "用户登录")
+    @SuccessMessage("login.success")
     public @PostMapping("/login") String login(@RequestBody LoginBody loginBody) {
         service.verifyCaptcha(loginBody.uid(), loginBody.captcha());
         return JwtKeyConstants.TOKEN_PREFIX + service.login(loginBody.account(), loginBody.password());

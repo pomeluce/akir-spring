@@ -2,9 +2,11 @@ package org.pomeluce.akir.core.web.handler;
 
 import jakarta.annotation.Nullable;
 import org.pomeluce.akir.common.annotation.NoResponseAdvice;
+import org.pomeluce.akir.common.annotation.SuccessMessage;
 import org.pomeluce.akir.common.core.domain.HttpEntity;
 import org.pomeluce.akir.common.enums.HttpEntityCode;
 import org.pomeluce.akir.common.utils.JacksonUtils;
+import org.pomeluce.akir.common.utils.ObjectUtils;
 import org.pomeluce.akir.common.utils.spring.SpringMessage;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -34,8 +36,13 @@ public class AkirHttpEntityAdvice implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, @Nullable MethodParameter returnType, @Nullable MediaType selectedContentType, @Nullable Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nullable ServerHttpRequest request, @Nullable ServerHttpResponse response) {
+        String messageKey = HttpEntityCode.SUCCESS.getContent();
+        if (returnType != null) {
+            SuccessMessage sma = returnType.getMethodAnnotation(SuccessMessage.class);
+            if (ObjectUtils.isNotEmpty(sma)) messageKey = sma.value();
+        }
         if (body instanceof HttpEntity<?>) return body;
-        HttpEntity<Object> result = HttpEntity.instance(HttpEntityCode.SUCCESS.getStatus(), SpringMessage.message(HttpEntityCode.SUCCESS.getContent()), body);
+        HttpEntity<Object> result = HttpEntity.instance(HttpEntityCode.SUCCESS.getStatus(), SpringMessage.message(messageKey), body);
         if (body instanceof String) return JacksonUtils.toJson(result);
         return result;
     }

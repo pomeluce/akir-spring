@@ -12,8 +12,10 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpVersion;
 import org.apache.hc.core5.util.Timeout;
+import org.pomeluce.akir.common.utils.ObjectUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
@@ -181,10 +183,9 @@ public class HttpClient {
                     .endTime(end)
                     .duration(Duration.between(start, end));
             if (response.getEntity() != null) {
-                byte[] data = response.getEntity().getContent().readAllBytes();
                 ContentType ct = ContentType.parse(response.getEntity().getContentType());
-                if (rb.isBinary() || !isText(ct)) builder.bodyBytes(data);
-                else builder.body(new String(data, ct.getCharset()));
+                if (rb.isBinary() || !isText(ct)) builder.stream(response.getEntity().getContent());
+                else builder.body(new String(response.getEntity().getContent().readAllBytes(), ObjectUtils.isEmpty(ct.getCharset(), StandardCharsets.UTF_8)));
             }
             return builder.build();
         } catch (IOException e) {

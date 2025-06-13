@@ -1,7 +1,7 @@
 package org.pomeluce.akir.controller.system;
 
 import jakarta.annotation.Resource;
-import org.pomeluce.akir.common.annotation.RestApiController;
+import org.pomeluce.akir.common.annotation.RestAPIController;
 import org.pomeluce.akir.common.core.controller.BaseController;
 import org.pomeluce.akir.server.system.domain.entity.Menu;
 import org.pomeluce.akir.server.system.services.SystemMenuService;
@@ -16,7 +16,7 @@ import java.util.List;
  * @className : SystemMenuController
  * @description : 菜单请求控制器
  */
-@RestApiController("/menu")
+@RestAPIController("/menu")
 public class SystemMenuController extends BaseController {
 
     private @Resource SystemMenuService service;

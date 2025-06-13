@@ -1,5 +1,6 @@
 package org.pomeluce.akir.common.core.http;
 
+import java.io.InputStream;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Map;
@@ -16,7 +17,7 @@ public record HttpResult(
         String message,
         int series,
         String body,
-        byte[] bodyBytes,
+        InputStream stream,
         Map<String, String> requestHeaders,
         Map<String, String> responseHeaders,
         Instant startTime,
@@ -32,7 +33,7 @@ public record HttpResult(
         private String message;
         private int series;
         private String body;
-        private byte[] bodyBytes;
+        private InputStream stream;
         private Map<String, String> requestHeaders;
         private Map<String, String> responseHeaders;
         private Instant startTime;
@@ -59,8 +60,8 @@ public record HttpResult(
             return this;
         }
 
-        public Builder bodyBytes(byte[] bytes) {
-            this.bodyBytes = bytes;
+        public Builder stream(InputStream stream) {
+            this.stream = stream;
             return this;
         }
 
@@ -90,7 +91,7 @@ public record HttpResult(
         }
 
         public HttpResult build() {
-            return new HttpResult(statusCode, message, series, body, bodyBytes, requestHeaders, responseHeaders, startTime, endTime, duration);
+            return new HttpResult(statusCode, message, series, body, stream, requestHeaders, responseHeaders, startTime, endTime, duration);
         }
     }
 }

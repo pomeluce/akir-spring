@@ -50,6 +50,7 @@ public class AkirProperty {
     @Setter
     public static class Config {
         private boolean enableLocation;
+        private String apiPrefix = "/api";
     }
 
     @Getter

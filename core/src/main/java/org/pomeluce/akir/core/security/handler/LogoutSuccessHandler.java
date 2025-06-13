@@ -38,7 +38,7 @@ public class LogoutSuccessHandler implements org.springframework.security.web.au
                 return e.getClaims().getSubject();
             }
         }).ifPresent(username -> tokenService.delLoginUser(username));
-        String message = SpringMessage.message(HttpEntityCode.SUCCESS.getContent());
+        String message = SpringMessage.message("logout.success");
         ServletClient.responseBody(response, HttpEntity.instance(HttpEntityCode.SUCCESS.getStatus(), message), HttpStatus.OK.value());
     }
 }
