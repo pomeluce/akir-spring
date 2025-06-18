@@ -2,13 +2,13 @@ package org.pomeluce.akir;
 
 import org.apache.hc.core5.http.HttpVersion;
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.config.AkirEnvironment;
-import org.pomeluce.akir.common.core.http.HttpClient;
-import org.pomeluce.akir.common.core.http.HttpMethod;
-import org.pomeluce.akir.common.core.http.HttpResult;
-import org.pomeluce.akir.common.utils.JacksonUtils;
-import org.pomeluce.akir.common.utils.StringUtils;
-import org.pomeluce.akir.common.utils.location.IpAddrUtils;
+import org.akir.common.config.AkirEnvironment;
+import org.akir.common.core.http.HttpClient;
+import org.akir.common.core.http.HttpMethod;
+import org.akir.common.core.http.HttpResult;
+import org.akir.common.utils.JacksonUtils;
+import org.akir.common.utils.StringUtils;
+import org.akir.common.utils.location.IpAddrUtils;
 
 import java.util.Arrays;
 import java.util.Locale;

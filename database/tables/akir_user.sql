@@ -17,6 +17,7 @@ create table akir_user
     email       varchar(50),
     phone       varchar(20),
     avatar      varchar(100),
+    user_handle text,
     create_by   varchar(20),
     create_time timestamp with time zone,
     update_by   varchar(20),
@@ -34,6 +35,8 @@ comment on column akir_user.status is '状态: 是否启用, 是否删除, 是�
 comment on column akir_user.identity_id is '身份证号';
 comment on column akir_user.email is '邮箱';
 comment on column akir_user.phone is '手机号';
+comment on column akir_user.avatar is '头像';
+comment on column akir_user.user_handle is 'WebAuthn user handle';
 comment on column akir_user.create_by is '创建人';
 comment on column akir_user.create_time is '创建时间';
 comment on column akir_user.update_by is '更新人';

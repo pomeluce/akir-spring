@@ -1,8 +1,8 @@
 package org.pomeluce.akir;
 
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.utils.ObjectUtils;
-import org.pomeluce.akir.server.system.domain.entity.User;
+import org.akir.common.utils.ObjectUtils;
+import org.akir.server.system.domain.entity.User;
 
 import java.io.Serializable;
 

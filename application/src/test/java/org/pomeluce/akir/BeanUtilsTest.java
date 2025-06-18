@@ -1,8 +1,8 @@
 package org.pomeluce.akir;
 
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.utils.beans.BeanUtils;
-import org.pomeluce.akir.server.system.domain.entity.User;
+import org.akir.common.utils.beans.BeanUtils;
+import org.akir.server.system.domain.entity.User;
 
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;

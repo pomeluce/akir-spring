@@ -3,11 +3,11 @@ package org.pomeluce.akir;
 import com.blazebit.persistence.PagedList;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.core.page.PaginationSupport;
-import org.pomeluce.akir.common.utils.spring.SecurityUtils;
-import org.pomeluce.akir.server.system.domain.entity.User;
-import org.pomeluce.akir.server.system.domain.enums.UserStatus;
-import org.pomeluce.akir.server.system.repository.SystemUserRepository;
+import org.akir.common.core.page.PaginationSupport;
+import org.akir.common.utils.spring.SecurityUtils;
+import org.akir.server.system.domain.entity.User;
+import org.akir.server.system.domain.enums.UserStatus;
+import org.akir.server.system.repository.SystemUserRepository;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;

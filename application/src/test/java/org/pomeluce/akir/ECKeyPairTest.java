@@ -1,6 +1,6 @@
 package org.pomeluce.akir;
 
-import org.pomeluce.akir.common.utils.security.ECKeyPair;
+import org.akir.common.utils.security.ECKeyPair;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;

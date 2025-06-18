@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.pomeluce</groupId>
+    <groupId>org.akir</groupId>
     <artifactId>akir-spring</artifactId>
-    <version>3.0.3</version>
+    <version>3.5.3</version>
     <packaging>pom</packaging>
 
     <name>akir-spring</name>
@@ -29,12 +29,13 @@
         <spring-boot.version>3.5.0</spring-boot.version>
         <spring-ai.version>1.0.0</spring-ai.version>
         <blaze-persistence.version>1.6.15</blaze-persistence.version>
-        <hypersistence.version>3.9.9</hypersistence.version>
-        <druid.version>1.2.24</druid.version>
+        <hypersistence.version>3.9.11</hypersistence.version>
+        <druid.version>1.2.25</druid.version>
+        <webauthn.version>2.7.0</webauthn.version>
         <httpclient-version>5.5</httpclient-version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
         <knife4j.version>4.5.0</knife4j.version>
-        <jackson.version>2.18.3</jackson.version>
+        <jackson.version>2.19.0</jackson.version>
         <jwt.version>0.12.6</jwt.version>
         <captcha.version>2.2.5</captcha.version>
         <user-agent.version>1.21</user-agent.version>
@@ -95,6 +96,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+           <!-- webauthn -->
+            <dependency>
+                <groupId>com.yubico</groupId>
+                <artifactId>webauthn-server-core</artifactId>
+                <version>${webauthn.version}</version>
             </dependency>
 
             <dependency>
@@ -171,39 +179,39 @@
             </dependency>
 
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>common</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>core</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>server</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>application</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>generator</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>tasks</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
             <dependency>
-                <groupId>org.pomeluce</groupId>
+                <groupId>org.akir</groupId>
                 <artifactId>ai</artifactId>
-                <version>3.0.3</version>
+                <version>3.5.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

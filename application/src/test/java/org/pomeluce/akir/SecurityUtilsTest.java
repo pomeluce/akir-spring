@@ -2,10 +2,10 @@ package org.pomeluce.akir;
 
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.utils.spring.SecurityUtils;
-import org.pomeluce.akir.core.web.service.AkirTokenService;
-import org.pomeluce.akir.server.system.domain.entity.User;
-import org.pomeluce.akir.server.system.repository.SystemUserRepository;
+import org.akir.common.utils.spring.SecurityUtils;
+import org.akir.core.web.service.AkirTokenService;
+import org.akir.server.system.domain.entity.User;
+import org.akir.server.system.repository.SystemUserRepository;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package org.pomeluce.akir;
 
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.utils.DateUtils;
+import org.akir.common.utils.DateUtils;
 
 import java.util.Date;
 

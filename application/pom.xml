@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.pomeluce</groupId>
+        <groupId>org.akir</groupId>
         <artifactId>akir-spring</artifactId>
-        <version>3.0.3</version>
+        <version>3.5.3</version>
     </parent>
 
     <artifactId>application</artifactId>
@@ -26,11 +26,11 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.pomeluce</groupId>
+            <groupId>org.akir</groupId>
             <artifactId>core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.pomeluce</groupId>
+            <groupId>org.akir</groupId>
             <artifactId>ai</artifactId>
         </dependency>
 

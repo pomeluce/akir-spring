@@ -2,8 +2,8 @@ package org.pomeluce.akir;
 
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
-import org.pomeluce.akir.common.constants.RedisKeyConstants;
-import org.pomeluce.akir.common.core.redis.RedisClient;
+import org.akir.common.constants.RedisKeyConstants;
+import org.akir.common.core.redis.RedisClient;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
