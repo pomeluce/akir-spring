@@ -1,6 +1,5 @@
 package org.akir.controller.system;
 
-import com.yubico.webauthn.RelyingParty;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,6 @@ import org.akir.common.annotation.RestAPIController;
 import org.akir.common.annotation.SuccessMessage;
 import org.akir.common.constants.JwtKeyConstants;
 import org.akir.common.core.controller.BaseController;
-import org.akir.core.web.service.AkirAuthnCredentialService;
 import org.akir.core.web.service.AkirLoginService;
 import org.akir.server.system.domain.enums.CaptchaType;
 import org.akir.server.system.domain.model.Captcha;
